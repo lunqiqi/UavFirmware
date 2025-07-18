@@ -1,26 +1,15 @@
 #include "sys.h"  
 //////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-//ALIENTEK STM32F407¿ª·¢°å
-//ÏµÍ³Ê±ÖÓ³õÊ¼»¯	
-//°üÀ¨Ê±ÖÓÉèÖÃ/ÖÐ¶Ï¹ÜÀí/GPIOÉèÖÃµÈ
-//ÕýµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//´´½¨ÈÕÆÚ:2014/5/2
-//°æ±¾£º V1.2
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
-//All rights reserved
-//********************************************************************************
-//ÐÞ¸ÄËµÃ÷
-//ÎÞ
+
+//ï¿½Þ¸ï¿½Ëµï¿½ï¿½
+//ï¿½ï¿½
 //////////////////////////////////////////////////////////////////////////////////  
 
 
 #ifdef  USE_FULL_ASSERT
-//µ±±àÒëÌáÊ¾³ö´íµÄÊ±ºò´Ëº¯ÊýÓÃÀ´±¨¸æ´íÎóµÄÎÄ¼þºÍËùÔÚÐÐ
-//file£ºÖ¸ÏòÔ´ÎÄ¼þ
-//line£ºÖ¸ÏòÔÚÎÄ¼þÖÐµÄÐÐÊý
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//fileï¿½ï¿½Ö¸ï¿½ï¿½Ô´ï¿½Ä¼ï¿½
+//lineï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
 void assert_failed(uint8_t* file, uint32_t line)
 { 
 	while (1)
@@ -29,26 +18,26 @@ void assert_failed(uint8_t* file, uint32_t line)
 }
 #endif
 
-//THUMBÖ¸Áî²»Ö§³Ö»ã±àÄÚÁª
-//²ÉÓÃÈçÏÂ·½·¨ÊµÏÖÖ´ÐÐ»ã±àÖ¸ÁîWFI  
+//THUMBÖ¸ï¿½î²»Ö§ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Êµï¿½ï¿½Ö´ï¿½Ð»ï¿½ï¿½Ö¸ï¿½ï¿½WFI  
 __asm void WFI_SET(void)
 {
 	WFI;		  
 }
-//¹Ø±ÕËùÓÐÖÐ¶Ï(µ«ÊÇ²»°üÀ¨faultºÍNMIÖÐ¶Ï)
+//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½(ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½faultï¿½ï¿½NMIï¿½Ð¶ï¿½)
 __asm void INTX_DISABLE(void)
 {
 	CPSID   I
 	BX      LR	  
 }
-//¿ªÆôËùÓÐÖÐ¶Ï
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 __asm void INTX_ENABLE(void)
 {
 	CPSIE   I
 	BX      LR  
 }
-//ÉèÖÃÕ»¶¥µØÖ·
-//addr:Õ»¶¥µØÖ·
+//ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½Ö·
+//addr:Õ»ï¿½ï¿½ï¿½ï¿½Ö·
 __asm void MSR_MSP(u32 addr) 
 {
 	MSR MSP, r0 			//set Main Stack value

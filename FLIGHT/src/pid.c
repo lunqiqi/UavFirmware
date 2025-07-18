@@ -1,20 +1,7 @@
 #include "pid.h"
 
 /********************************************************************************	 
- * ±¾³ÌĞòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßĞí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * PIDÇı¶¯´úÂë	
- * ÕıµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓĞ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾ 2014-2024
- * All rights reserved
- *
- * ĞŞ¸ÄËµÃ÷:
- * °æ±¾V1.3 Ôö¼ÓPID½á¹¹ÌåµÄÊä³öÒ»Ïî(out)¡£
-********************************************************************************/
+
 
 void pidInit(PidObject* pid, const float desired, const pidInit_t pidParam, const float dt)
 {
@@ -39,7 +26,7 @@ float pidUpdate(PidObject* pid, const float error)
 
 	pid->integ += pid->error * pid->dt;
 	
-	//»ı·ÖÏŞ·ù
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ş·ï¿½
 	if (pid->integ > pid->iLimit)
 	{
 		pid->integ = pid->iLimit;
@@ -57,7 +44,7 @@ float pidUpdate(PidObject* pid, const float error)
 
 	output = pid->outP + pid->outI + pid->outD;
 	
-	//Êä³öÏŞ·ù
+	//ï¿½ï¿½ï¿½ï¿½Ş·ï¿½
 	if (pid->outputLimit != 0)
 	{
 		if (output > pid->outputLimit)

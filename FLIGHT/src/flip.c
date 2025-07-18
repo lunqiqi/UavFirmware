@@ -4,31 +4,21 @@
 #include "commander.h"
 #include "stabilizer.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼ş*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 
 /********************************************************************************	 
- * ±¾³ÌĞòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßĞí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * ËÄÖá¿Õ·­¿ØÖÆ´úÂë	
- * ÕıµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓĞ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾ 2014-2024
- * All rights reserved
-********************************************************************************/
 
-#define FLIP_RATE		RATE_500_HZ				/*ÖÜÆÚ*/	
-#define MID_ANGLE		(180.f * FLIP_RATE)		/*ÖĞ¼ä½Ç¶È ·Å´ó500±¶*/
+
+#define FLIP_RATE		RATE_500_HZ				/*ï¿½ï¿½ï¿½ï¿½*/	
+#define MID_ANGLE		(180.f * FLIP_RATE)		/*ï¿½Ğ¼ï¿½Ç¶ï¿½ ï¿½Å´ï¿½500ï¿½ï¿½*/
 #define MAX_FLIP_RATE	1380					/* <2000 */
-#define DELTA_RATE		(30000.f/MAX_FLIP_RATE)	/*µİÔöËÙÂÊ*/
+#define DELTA_RATE		(30000.f/MAX_FLIP_RATE)	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-#define FLIP_TIMEOUT		800			/*·­¹ö¹ı³Ì³¬Ê±Ê±¼ä*/
-#define SPEED_UP_TIMEOUT	400			/*¼ÓËÙÉÏÉı³¬Ê±Ê±¼ä*/
-#define REVER_SPEEDUP_TIME	160			/*·´Ïò¼ÓËÙÊ±¼ä*/
+#define FLIP_TIMEOUT		800			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½Ê±Ê±ï¿½ï¿½*/
+#define SPEED_UP_TIMEOUT	400			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê±ï¿½ï¿½*/
+#define REVER_SPEEDUP_TIME	160			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½*/
 
 
 static enum
@@ -43,16 +33,16 @@ static enum
 	FLIP_ERROR,
 }flipState = FLIP_IDLE;
 
-u8 fstate;				/*·­¹ö×´Ì¬*/
-enum dir_e flipDir;		/*·­¹ö·½Ïò*/
-static u16 maxRateCnt = 0;			/*×î´óËÙÂÊ¼ÆÊı*/
-static float desiredVelZ = 105.f;	/*¼ÓËÙÉÏÉıÆÚÍûËÙ¶È*/
-static float currentRate = 0.f;		/*µ±Ç°ËÙÂÊ*/
-static float currentAngle = 0.f;	/*µ±Ç°½Ç¶È ·Å´ó500±¶*/
-bool isExitFlip = true;				/*ÊÇ·ñÍË³ö¿Õ·­*/
+u8 fstate;				/*ï¿½ï¿½ï¿½ï¿½×´Ì¬*/
+enum dir_e flipDir;		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+static u16 maxRateCnt = 0;			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½*/
+static float desiredVelZ = 105.f;	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½*/
+static float currentRate = 0.f;		/*ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½*/
+static float currentAngle = 0.f;	/*ï¿½ï¿½Ç°ï¿½Ç¶ï¿½ ï¿½Å´ï¿½500ï¿½ï¿½*/
+bool isExitFlip = true;				/*ï¿½Ç·ï¿½ï¿½Ë³ï¿½ï¿½Õ·ï¿½*/
 
 /********************************************************
-* Flyer ·­¹ö¼ì²â 
+* Flyer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 *********************************************************/
 void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 {
@@ -71,14 +61,14 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 	
 	switch(flipState)
 	{
-		case FLIP_IDLE:	/*·­¹ö¿ÕÏĞ×´Ì¬*/
+		case FLIP_IDLE:	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬*/
 		{
 			if(flipDir!=CENTER)
 			{
 				if(control->thrust > 28000 && state->velocity.z > -20.f)
 				{
 					flipState = FLIP_SET;
-					exitFlipCnt = 500;		/*¿Õ·­Íê³É£¬ÑÓÊ±1S(500Hz)ÍË³ö¿Õ·­ */
+					exitFlipCnt = 500;		/*ï¿½Õ·ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½Ê±1S(500Hz)ï¿½Ë³ï¿½ï¿½Õ·ï¿½ */
 					isExitFlip = false;
 				}					
 				else
@@ -94,7 +84,7 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 			}				
 			break;
 		}
-		case FLIP_SET:	/*·­¹öÉèÖÃ*/
+		case FLIP_SET:	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 		{
 			currentRate = 0.f;
 			maxRateCnt = 0;
@@ -115,7 +105,7 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 			flipState = FLIP_SPEED_UP;
 			break;
 		}
-		case FLIP_SPEED_UP:	/*¼ÓËÙÉÏÉı¹ı³Ì*/
+		case FLIP_SPEED_UP:	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 		{
 			if(state->velocity.z < desiredVelZ)
 			{
@@ -124,10 +114,10 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 					tempThrust += deltaThrust;
 				setpoint->thrust = tempThrust;
 				
-				if(flipTimeout++ > SPEED_UP_TIMEOUT)	/*³¬Ê±´¦Àí*/
+				if(flipTimeout++ > SPEED_UP_TIMEOUT)	/*ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½*/
 				{
 					flipTimeout = 0;
-					flipState = FLIP_SLOW_DOWN;			/*Ö±½Ó½øÈëÏÂÒ»¸ö×´Ì¬*/
+					flipState = FLIP_SLOW_DOWN;			/*Ö±ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½×´Ì¬*/
 				}														
 			}else	
 			{	
@@ -136,7 +126,7 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 			}		
 			break;
 		}
-		case FLIP_SLOW_DOWN:	/*¼õËÙ¹ı³Ì*/
+		case FLIP_SLOW_DOWN:	/*ï¿½ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½*/
 		{
 			if(tempThrust > flipThrust)
 			{
@@ -148,9 +138,9 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 				flipState = FLIP_PERIOD;
 			}
 		}
-		case FLIP_PERIOD:	/*·­¹ö¹ı³Ì*/
+		case FLIP_PERIOD:	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 		{
-			if(flipTimeout++ > FLIP_TIMEOUT)	/*³¬Ê±´¦Àí*/
+			if(flipTimeout++ > FLIP_TIMEOUT)	/*ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½*/
 			{
 				flipTimeout = 0;
 				flipState = FLIP_ERROR;
@@ -159,15 +149,15 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 			setpoint->mode.z = modeDisable;
 			setpoint->thrust = flipThrust - 3*currentRate;
 			
-			currentAngle += currentRate;		/*µ±Ç°½Ç¶È ·Å´ó500±¶*/
+			currentAngle += currentRate;		/*ï¿½ï¿½Ç°ï¿½Ç¶ï¿½ ï¿½Å´ï¿½500ï¿½ï¿½*/
 			
-			if(currentAngle < MID_ANGLE)		/*ÉÏ°ëÈ¦*/
+			if(currentAngle < MID_ANGLE)		/*ï¿½Ï°ï¿½È¦*/
 			{
-				if(currentRate < MAX_FLIP_RATE)/*Ğ¡ÓÚ×î´óËÙÂÊ£¬ËÙÂÊ¼ÌĞøÔö´ó*/
+				if(currentRate < MAX_FLIP_RATE)/*Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 					currentRate += DELTA_RATE;
-				else			/*´óÓÚ×î´óËÙÂÊ£¬ËÙÂÊ±£³Ö*/
+				else			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½*/
 					maxRateCnt++;					
-			}else	/*ÏÂ°ëÈ¦*/
+			}else	/*ï¿½Â°ï¿½È¦*/
 			{
 				if(maxRateCnt > 0)
 				{						
@@ -209,7 +199,7 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 			}
 			break;
 		}
-		case FLIP_FINISHED:	/*·­¹öÍê³É*/
+		case FLIP_FINISHED:	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 		{
 			setpoint->mode.z = modeDisable;
 			setpoint->thrust = tempThrust;
@@ -223,7 +213,7 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 			flipState = REVER_SPEED_UP;
 			break;
 		}
-		case REVER_SPEED_UP:	/*·­¹öÍê³Éºó ·´Ïò¼ÓËÙ*/
+		case REVER_SPEED_UP:	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 		{			
 			if(reverTime++<REVER_SPEEDUP_TIME)	
 			{
@@ -235,7 +225,7 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 			{				
 				flipTimeout = 0;
 				flipState = FLIP_IDLE;					
-//				if(getCommanderKeyFlight())	/*¶¨¸ßÄ£Ê½*/
+//				if(getCommanderKeyFlight())	/*ï¿½ï¿½ï¿½ï¿½Ä£Ê½*/
 //				{
 //					setpoint->thrust = 0;
 //					setpoint->mode.z = modeAbs;	
@@ -255,7 +245,7 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 			{
 				flipTimeout = 0;
 				
-				if(getCommanderKeyFlight())	/*¶¨¸ßÄ£Ê½*/
+				if(getCommanderKeyFlight())	/*ï¿½ï¿½ï¿½ï¿½Ä£Ê½*/
 				{
 					setpoint->thrust = 0;
 					setpoint->mode.z = modeAbs;				
@@ -270,7 +260,7 @@ void flyerFlipCheck(setpoint_t* setpoint, control_t* control, state_t* state)
 }
 
 
-//ÉèÖÃ·­¹ö·½Ïò
+//ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void setFlipDir(u8 dir)
 {
 	flipDir = (enum dir_e)dir;	

@@ -5,43 +5,30 @@
 #include "maths.h"
 
 /********************************************************************************	 
- * ±¾³ÌĞòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßĞí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * 6ÖáÊı¾İÈÚºÏ´úÂë	
- * ÕıµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓĞ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾ 2014-2024
- * All rights reserved
- *
- * ĞŞ¸ÄËµÃ÷:
- * °æ±¾V1.3 »¥²¹ÂË²¨´úÂëÒÆÖ²ÓÚinav-1.9.0
-********************************************************************************/
+
 
 #define ACCZ_SAMPLE		350
 
-float Kp = 0.4f;		/*±ÈÀıÔöÒæ*/
-float Ki = 0.001f;		/*»ı·ÖÔöÒæ*/
+float Kp = 0.4f;		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+float Ki = 0.001f;		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 float exInt = 0.0f;
 float eyInt = 0.0f;
-float ezInt = 0.0f;		/*»ı·ÖÎó²îÀÛ¼Æ*/
+float ezInt = 0.0f;		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½*/
 
-static float q0 = 1.0f;	/*ËÄÔªÊı*/
+static float q0 = 1.0f;	/*ï¿½ï¿½Ôªï¿½ï¿½*/
 static float q1 = 0.0f;
 static float q2 = 0.0f;
 static float q3 = 0.0f;	
-static float rMat[3][3];/*Ğı×ª¾ØÕó*/
+static float rMat[3][3];/*ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½*/
 
-static float maxError = 0.f;		/*×î´óÎó²î*/
-bool isGravityCalibrated = false;	/*ÊÇ·ñĞ£Ğ£×¼Íê³É*/
-static float baseAcc[3] = {0.f,0.f,1.0f};	/*¾²Ì¬¼ÓËÙ¶È*/
+static float maxError = 0.f;		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+bool isGravityCalibrated = false;	/*ï¿½Ç·ï¿½Ğ£Ğ£×¼ï¿½ï¿½ï¿½*/
+static float baseAcc[3] = {0.f,0.f,1.0f};	/*ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½Ù¶ï¿½*/
 
 
-static float invSqrt(float x);	/*¿ìËÙ¿ªÆ½·½Çóµ¹*/
+static float invSqrt(float x);	/*ï¿½ï¿½ï¿½Ù¿ï¿½Æ½ï¿½ï¿½ï¿½ï¿½*/
 
-static void calBaseAcc(float* acc)	/*¼ÆËã¾²Ì¬¼ÓËÙ¶È*/
+static void calBaseAcc(float* acc)	/*ï¿½ï¿½ï¿½ã¾²Ì¬ï¿½ï¿½ï¿½Ù¶ï¿½*/
 {
 	static u16 cnt = 0;
 	static float accZMin = 1.5;
@@ -54,7 +41,7 @@ static void calBaseAcc(float* acc)	/*¼ÆËã¾²Ì¬¼ÓËÙ¶È*/
 	if(acc[2] < accZMin)	accZMin = acc[2];
 	if(acc[2] > accZMax)	accZMax = acc[2];
 	
-	if(++cnt >= ACCZ_SAMPLE) /*»º³åÇøÂú*/
+	if(++cnt >= ACCZ_SAMPLE) /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	{
 		cnt = 0;
 		maxError = accZMax - accZMin;
@@ -68,7 +55,7 @@ static void calBaseAcc(float* acc)	/*¼ÆËã¾²Ì¬¼ÓËÙ¶È*/
 			
 			isGravityCalibrated = true;
 			
-			ledseqRun(SYS_LED, seq_calibrated);	/*Ğ£×¼Í¨¹ıÖ¸Ê¾µÆ*/
+			ledseqRun(SYS_LED, seq_calibrated);	/*Ğ£×¼Í¨ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½*/
 		}
 		
 		for(u8 i=0; i<3; i++)		
@@ -76,7 +63,7 @@ static void calBaseAcc(float* acc)	/*¼ÆËã¾²Ì¬¼ÓËÙ¶È*/
 	}	
 }
 
-/*¼ÆËãĞı×ª¾ØÕó*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½*/
 void imuComputeRotationMatrix(void)
 {
     float q1q1 = q1 * q1;
@@ -103,7 +90,7 @@ void imuComputeRotationMatrix(void)
     rMat[2][2] = 1.0f - 2.0f * q1q1 - 2.0f * q2q2;
 }
 
-void imuUpdate(Axis3f acc, Axis3f gyro, state_t *state , float dt)	/*Êı¾İÈÚºÏ »¥²¹ÂË²¨*/
+void imuUpdate(Axis3f acc, Axis3f gyro, state_t *state , float dt)	/*ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½*/
 {
 	float normalise;
 	float ex, ey, ez;
@@ -111,35 +98,35 @@ void imuUpdate(Axis3f acc, Axis3f gyro, state_t *state , float dt)	/*Êı¾İÈÚºÏ »¥
 	float accBuf[3] = {0.f};
 	Axis3f tempacc = acc;
 	
-	gyro.x = gyro.x * DEG2RAD;	/* ¶È×ª»¡¶È */
+	gyro.x = gyro.x * DEG2RAD;	/* ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ */
 	gyro.y = gyro.y * DEG2RAD;
 	gyro.z = gyro.z * DEG2RAD;
 
-	/* ¼ÓËÙ¶È¼ÆÊä³öÓĞĞ§Ê±,ÀûÓÃ¼ÓËÙ¶È¼Æ²¹³¥ÍÓÂİÒÇ*/
+	/* ï¿½ï¿½ï¿½Ù¶È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§Ê±,ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½Ù¶È¼Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	if((acc.x != 0.0f) || (acc.y != 0.0f) || (acc.z != 0.0f))
 	{
-		/*µ¥Î»»¯¼ÓËÙ¼Æ²âÁ¿Öµ*/
+		/*ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ù¼Æ²ï¿½ï¿½ï¿½Öµ*/
 		normalise = invSqrt(acc.x * acc.x + acc.y * acc.y + acc.z * acc.z);
 		acc.x *= normalise;
 		acc.y *= normalise;
 		acc.z *= normalise;
 
-		/*¼ÓËÙ¼Æ¶ÁÈ¡µÄ·½ÏòÓëÖØÁ¦¼ÓËÙ¼Æ·½ÏòµÄ²îÖµ£¬ÓÃÏòÁ¿²æ³Ë¼ÆËã*/
+		/*ï¿½ï¿½ï¿½Ù¼Æ¶ï¿½È¡ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¼Æ·ï¿½ï¿½ï¿½Ä²ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½*/
 		ex = (acc.y * rMat[2][2] - acc.z * rMat[2][1]);
 		ey = (acc.z * rMat[2][0] - acc.x * rMat[2][2]);
 		ez = (acc.x * rMat[2][1] - acc.y * rMat[2][0]);
 		
-		/*Îó²îÀÛ¼Æ£¬Óë»ı·Ö³£ÊıÏà³Ë*/
+		/*ï¿½ï¿½ï¿½ï¿½Û¼Æ£ï¿½ï¿½ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 		exInt += Ki * ex * dt ;  
 		eyInt += Ki * ey * dt ;
 		ezInt += Ki * ez * dt ;
 		
-		/*ÓÃ²æ»ıÎó²îÀ´×öPIĞŞÕıÍÓÂİÁãÆ«£¬¼´µÖÏûÍÓÂİ¶ÁÊıÖĞµÄÆ«ÒÆÁ¿*/
+		/*ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¶ï¿½ï¿½ï¿½ï¿½Ğµï¿½Æ«ï¿½ï¿½ï¿½ï¿½*/
 		gyro.x += Kp * ex + exInt;
 		gyro.y += Kp * ey + eyInt;
 		gyro.z += Kp * ez + ezInt;
 	}
-	/* Ò»½×½üËÆËã·¨£¬ËÄÔªÊıÔË¶¯Ñ§·½³ÌµÄÀëÉ¢»¯ĞÎÊ½ºÍ»ı·Ö */
+	/* Ò»ï¿½×½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ë¶ï¿½Ñ§ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½É¢ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Í»ï¿½ï¿½ï¿½ */
 	float q0Last = q0;
 	float q1Last = q1;
 	float q2Last = q2;
@@ -149,16 +136,16 @@ void imuUpdate(Axis3f acc, Axis3f gyro, state_t *state , float dt)	/*Êı¾İÈÚºÏ »¥
 	q2 += ( q0Last * gyro.y - q1Last * gyro.z + q3Last * gyro.x) * halfT;
 	q3 += ( q0Last * gyro.z + q1Last * gyro.y - q2Last * gyro.x) * halfT;
 	
-	/*µ¥Î»»¯ËÄÔªÊı*/
+	/*ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½*/
 	normalise = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
 	q0 *= normalise;
 	q1 *= normalise;
 	q2 *= normalise;
 	q3 *= normalise;
 	
-	imuComputeRotationMatrix();	/*¼ÆËãĞı×ª¾ØÕó*/
+	imuComputeRotationMatrix();	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½*/
 	
-	/*¼ÆËãroll pitch yaw Å·À­½Ç*/
+	/*ï¿½ï¿½ï¿½ï¿½roll pitch yaw Å·ï¿½ï¿½ï¿½ï¿½*/
 	state->attitude.pitch = -asinf(rMat[2][0]) * RAD2DEG; 
 	state->attitude.roll = atan2f(rMat[2][1], rMat[2][2]) * RAD2DEG;
 	state->attitude.yaw = atan2f(rMat[1][0], rMat[0][0]) * RAD2DEG;
@@ -168,11 +155,11 @@ void imuUpdate(Axis3f acc, Axis3f gyro, state_t *state , float dt)	/*Êı¾İÈÚºÏ »¥
 //		accBuf[0] = tempacc.x* rMat[0][0] + tempacc.y * rMat[0][1] + tempacc.z * rMat[0][2];	/*accx*/
 //		accBuf[1] = tempacc.x* rMat[1][0] + tempacc.y * rMat[1][1] + tempacc.z * rMat[1][2];	/*accy*/
 		accBuf[2] = tempacc.x* rMat[2][0] + tempacc.y * rMat[2][1] + tempacc.z * rMat[2][2];	/*accz*/
-		calBaseAcc(accBuf);		/*¼ÆËã¾²Ì¬¼ÓËÙ¶È*/				
+		calBaseAcc(accBuf);		/*ï¿½ï¿½ï¿½ã¾²Ì¬ï¿½ï¿½ï¿½Ù¶ï¿½*/				
 	}
 }
 
-/*»úÌåµ½µØÇò*/
+/*ï¿½ï¿½ï¿½åµ½ï¿½ï¿½ï¿½ï¿½*/
 void imuTransformVectorBodyToEarth(Axis3f * v)
 {
     /* From body frame to earth frame */
@@ -188,10 +175,10 @@ void imuTransformVectorBodyToEarth(Axis3f * v)
 	
     v->x = vx;
     v->y = -vy;
-    v->z = z - baseAcc[2] *  980.f;	/*È¥³ıÖØÁ¦¼ÓËÙ¶È*/
+    v->z = z - baseAcc[2] *  980.f;	/*È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½*/
 }
 
-/*µØÇòµ½»úÌå*/
+/*ï¿½ï¿½ï¿½òµ½»ï¿½ï¿½ï¿½*/
 void imuTransformVectorEarthToBody(Axis3f * v)
 {
     v->y = -v->y;
@@ -208,7 +195,7 @@ void imuTransformVectorEarthToBody(Axis3f * v)
 
 // Fast inverse square-root
 // See: http://en.wikipedia.org/wiki/Fast_inverse_square_root
-float invSqrt(float x)	/*¿ìËÙ¿ªÆ½·½Çóµ¹*/
+float invSqrt(float x)	/*ï¿½ï¿½ï¿½Ù¿ï¿½Æ½ï¿½ï¿½ï¿½ï¿½*/
 {
 	float halfx = 0.5f * x;
 	float y = x;

@@ -3,28 +3,19 @@
 #include "stabilizer_types.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * Òì³£¼ì²âÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 
 #define DETEC_ENABLED
 
-#define DETEC_FF_THRESHOLD 	0.05f	/* accZ½Ó½ü-1.0³Ì¶È ±íÊ¾Free Fall */
-#define DETEC_FF_COUNT 		50  	/* ×ÔÓÉÂäÌå¼ì²â¼ÆÊý 1000Hz²âÊÔÌõ¼þ */
+#define DETEC_FF_THRESHOLD 	0.05f	/* accZï¿½Ó½ï¿½-1.0ï¿½Ì¶ï¿½ ï¿½ï¿½Ê¾Free Fall */
+#define DETEC_FF_COUNT 		50  	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1000Hzï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
-#define DETEC_TU_THRESHOLD 	60		/* Åö×²¼ì²âãÐÖµ60¡ã*/
-#define DETEC_TU_COUNT 		100  	/* Åö×²¼ì²â¼ÆÊý 1000Hz²âÊÔÌõ¼þ */
+#define DETEC_TU_THRESHOLD 	60		/* ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½Öµ60ï¿½ï¿½*/
+#define DETEC_TU_COUNT 		100  	/* ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1000Hzï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
-/*Òì³£¼ì²â*/
+/*ï¿½ì³£ï¿½ï¿½ï¿½*/
 void anomalDetec(const sensorData_t *sensorData, const state_t *state, const control_t *control);
 
 #endif	/*__ANOMAL_DETEC_H*/

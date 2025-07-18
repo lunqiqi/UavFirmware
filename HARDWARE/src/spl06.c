@@ -5,24 +5,15 @@
 #include "spl06.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * SPL06Çý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
-#define P_MEASURE_RATE 			SPL06_MWASURE_16 	//Ã¿Ãë²âÁ¿´ÎÊý
-#define P_OVERSAMP_RATE 		SPL06_OVERSAMP_64	//¹ý²ÉÑùÂÊ
+#define P_MEASURE_RATE 			SPL06_MWASURE_16 	//Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define P_OVERSAMP_RATE 		SPL06_OVERSAMP_64	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define SPL06_PRESSURE_CFG		(P_MEASURE_RATE<<4 | P_OVERSAMP_RATE)
 
-#define T_MEASURE_RATE 			SPL06_MWASURE_16 	//Ã¿Ãë²âÁ¿´ÎÊý
-#define T_OVERSAMP_RATE 		SPL06_OVERSAMP_8	//¹ý²ÉÑùÂÊ
+#define T_MEASURE_RATE 			SPL06_MWASURE_16 	//Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define T_OVERSAMP_RATE 		SPL06_OVERSAMP_8	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define SPL06_TEMPERATURE_CFG	(TEMPERATURE_EXTERNAL_SENSOR<<7 | T_MEASURE_RATE<<4 | T_OVERSAMP_RATE)
 
 #define SPL06_MODE				(SPL06_CONTINUOUS_MODE)
@@ -122,14 +113,14 @@ bool SPL06Init(I2C_Dev *i2cPort)
 
     delay_ms(50);
 	
-	i2cdevReadByte(I2Cx, devAddr, SPL06_CHIP_ID, &SPL06ID);	/* ¶ÁÈ¡SPL06 ID*/
+	i2cdevReadByte(I2Cx, devAddr, SPL06_CHIP_ID, &SPL06ID);	/* ï¿½ï¿½È¡SPL06 ID*/
 	
 	if(SPL06ID == SPL06_DEFAULT_CHIP_ID)
 		printf("SPL06 ID IS: 0x%X\n",SPL06ID);
     else
         return false;
 
-    //¶ÁÈ¡Ð£×¼Êý¾Ý
+    //ï¿½ï¿½È¡Ð£×¼ï¿½ï¿½ï¿½ï¿½
 	spl0601_get_calib_param();
 	spl0601_rateset(PRESURE_SENSOR, SPL06_MWASURE_16, SPL06_OVERSAMP_64);
 	spl0601_rateset(TEMPERATURE_SENSOR, SPL06_MWASURE_16, SPL06_OVERSAMP_64);
@@ -191,10 +182,10 @@ void SPL06GetData(float* pressure, float* temperature, float* asl)
 	p = spl0601_get_pressure(SPL06RawPressure, SPL06RawTemperature);		
 
 //	pressureFilter(&p,pressure);
-	*temperature = (float)t;/*µ¥Î»¶È*/
-	*pressure = (float)p ;	/*µ¥Î»hPa*/	
+	*temperature = (float)t;/*ï¿½ï¿½Î»ï¿½ï¿½*/
+	*pressure = (float)p ;	/*ï¿½ï¿½Î»hPa*/	
 	
-	*asl=SPL06PressureToAltitude(*pressure);	/*×ª»»³Éº£°Î*/	
+	*asl=SPL06PressureToAltitude(*pressure);	/*×ªï¿½ï¿½ï¿½Éºï¿½ï¿½ï¿½*/	
 }
 
 /**

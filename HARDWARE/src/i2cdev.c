@@ -3,22 +3,11 @@
 #include "i2cdev.h"
 #include "i2c_drv.h"
 
-/********************************************************************************	 
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly
- * IIC器件读写控制代码	
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2018/5/2
- * 版本：V1.3
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
-********************************************************************************/
+
 
 
 /**
- * IIC器件初始化
+ * IIC锟斤拷锟斤拷锟斤拷始锟斤拷
  */
 int i2cdevInit(I2C_Dev *dev)
 {
@@ -28,7 +17,7 @@ int i2cdevInit(I2C_Dev *dev)
 }
 
 /**
- * IIC读取外设一个字节
+ * IIC锟斤拷取锟斤拷锟斤拷一锟斤拷锟街斤拷
  */
 bool i2cdevReadByte(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_t *data)
 {
@@ -36,7 +25,7 @@ bool i2cdevReadByte(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_
 }
 
 /**
- * IIC读取外设某一个位
+ * IIC锟斤拷取锟斤拷锟斤拷某一锟斤拷位
  */
 bool i2cdevReadBit(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_t bitNum, uint8_t *data)
 {
@@ -50,7 +39,7 @@ bool i2cdevReadBit(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_t
 }
 
 /**
- * IIC读取外设多个位
+ * IIC锟斤拷取锟斤拷锟斤拷锟斤拷位
  */
 bool i2cdevReadBits(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_t bitStart, uint8_t length, uint8_t *data)
 {
@@ -67,7 +56,7 @@ bool i2cdevReadBits(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_
 	return status;
 }
 /**
- * IIC读取外设多个字节
+ * IIC锟斤拷取锟斤拷锟斤拷锟斤拷锟街斤拷
  */
 bool i2cdevRead(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint16_t len, uint8_t *data)
 {
@@ -85,7 +74,7 @@ bool i2cdevRead(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint16_t l
 	return i2cdrvMessageTransfer(dev, &message);
 }
 /**
- * IIC读取外设16位寄存器（内存）
+ * IIC锟斤拷取锟斤拷锟斤拷16位锟侥达拷锟斤拷锟斤拷锟节存）
  */
 bool i2cdevRead16(I2C_Dev *dev, uint8_t devAddress, uint16_t memAddress, uint16_t len, uint8_t *data)
 {
@@ -96,14 +85,14 @@ bool i2cdevRead16(I2C_Dev *dev, uint8_t devAddress, uint16_t memAddress, uint16_
 	return i2cdrvMessageTransfer(dev, &message);
 }
 /**
- * IIC写入外设一个字节
+ * IIC写锟斤拷锟斤拷锟斤拷一锟斤拷锟街斤拷
  */
 bool i2cdevWriteByte(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_t data)
 {
 	return i2cdevWrite(dev, devAddress, memAddress, 1, &data);
 }
 /**
- * IIC写入外设某一个位
+ * IIC写锟斤拷锟斤拷锟斤拷某一锟斤拷位
  */
 bool i2cdevWriteBit(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_t bitNum, uint8_t data)
 {
@@ -113,7 +102,7 @@ bool i2cdevWriteBit(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_
     return i2cdevWriteByte(dev, devAddress, memAddress, byte);
 }
 /**
- * IIC写入外设多个位
+ * IIC写锟斤拷锟斤拷锟斤拷锟斤拷位
  */
 bool i2cdevWriteBits(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8_t bitStart, uint8_t length, uint8_t data)
 {
@@ -133,7 +122,7 @@ bool i2cdevWriteBits(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint8
 	return status;
 }
 /**
- * IIC写入外设多个字节
+ * IIC写锟斤拷锟斤拷锟斤拷锟斤拷锟街斤拷
  */
 bool i2cdevWrite(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint16_t len, uint8_t *data)
 {
@@ -151,7 +140,7 @@ bool i2cdevWrite(I2C_Dev *dev, uint8_t devAddress, uint8_t memAddress, uint16_t 
 	return i2cdrvMessageTransfer(dev, &message);
 }
 /**
- * IIC写入外设16位寄存器（内存）
+ * IIC写锟斤拷锟斤拷锟斤拷16位锟侥达拷锟斤拷锟斤拷锟节存）
  */
 bool i2cdevWrite16(I2C_Dev *dev, uint8_t devAddress, uint16_t memAddress, uint16_t len, uint8_t *data)
 {

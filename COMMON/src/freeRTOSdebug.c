@@ -4,22 +4,12 @@
 #include "led.h"
 #include "FreeRTOSConfig.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼þ*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * ±äÁ¿µ÷ÊÔÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
-********************************************************************************/
+***************************************************/
 
 u32 traceTickCount;
 
@@ -27,7 +17,7 @@ void vApplicationMallocFailedHook( void )
 {
 	portDISABLE_INTERRUPTS();
 	printf("\nMalloc failed!\n");
-	ledSet(ERR_LED1, 1);	/*´íÎó¼ì²â*/
+	ledSet(ERR_LED1, 1);	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	ledSet(ERR_LED2, 1);
 	while(1);
 }
@@ -37,7 +27,7 @@ void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed portCHAR *pcTaskN
 {
 	portDISABLE_INTERRUPTS();
 	printf("\nStack overflow!\n");
-	ledSet(ERR_LED1, 1);/*´íÎó¼ì²â*/
+	ledSet(ERR_LED1, 1);/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	ledSet(ERR_LED2, 1);
 	while(1);
 }

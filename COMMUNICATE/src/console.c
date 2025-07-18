@@ -3,21 +3,12 @@
 #include "atkp.h"
 #include "radiolink.h"
 #include "usblink.h"
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼ş*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "semphr.h"
 
 /********************************************************************************	 
- * ±¾³ÌĞòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßĞí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * Êı¾İ´òÓ¡Çı¶¯´úÂë	
- * ÕıµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓĞ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 
@@ -43,7 +34,7 @@ bool consoleTest(void)
 {
 	return isInit;
 }
-/* ÊäÈëÒ»¸ö×Ö·ûµ½console»º³åÇø*/
+/* ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½consoleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 int consolePutchar(int ch)
 {
 	int i;
@@ -81,7 +72,7 @@ int consolePutchar(int ch)
 	}
 	return (u8)ch;
 }
-/* ÖĞ¶Ï·½Ê½ÊäÈëÒ»¸ö×Ö·ûµ½console»º³åÇø*/
+/* ï¿½Ğ¶Ï·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½consoleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 int consolePutcharFromISR(int ch) 
 {
 	BaseType_t higherPriorityTaskWoken;
@@ -98,7 +89,7 @@ int consolePutcharFromISR(int ch)
 
 	return ch;
 }
-/* ÊäÈëÒ»¸ö×Ö·û´®µ½console»º³åÇø*/
+/* ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½consoleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 int consolePuts(char *str)
 {
 	int ret = 0;

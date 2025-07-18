@@ -5,15 +5,7 @@
 #include <stdint.h>
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * AK8963Çý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿Æ¼ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2014-2024
  * All rights reserved
 ********************************************************************************/
 
@@ -78,11 +70,11 @@
 
 void ak8963Init(I2C_Dev *i2cPort);
 bool ak8963TestConnection(void);
-bool ak8963SelfTest(void);	/*AK8963×Ô¼ì*/
+bool ak8963SelfTest(void);	/*AK8963ï¿½Ô¼ï¿½*/
 
-uint8_t ak8963GetDeviceID(void);	// WIA ¼Ä´æÆ÷
-uint8_t ak8963GetInfo(void);		// INFO ¼Ä´æÆ÷
-uint8_t ak8963GetDataReady(void);	// ST1 ¼Ä´æÆ÷
+uint8_t ak8963GetDeviceID(void);	// WIA ï¿½Ä´ï¿½ï¿½ï¿½
+uint8_t ak8963GetInfo(void);		// INFO ï¿½Ä´ï¿½ï¿½ï¿½
+uint8_t ak8963GetDataReady(void);	// ST1 ï¿½Ä´ï¿½ï¿½ï¿½
 
 // H* registers
 void ak8963GetHeading(s16 *x, s16 *y, s16 *z);
@@ -90,14 +82,14 @@ s16 ak8963GetHeadingX(void);
 s16 ak8963GetHeadingY(void);
 s16 ak8963GetHeadingZ(void);
 
-bool ak8963GetOverflowStatus(void);// ST2 ¼Ä´æÆ÷
+bool ak8963GetOverflowStatus(void);// ST2 ï¿½Ä´ï¿½ï¿½ï¿½
 bool ak8963GetDataError(void);
 
-uint8_t ak8963GetMode(void);// CNTL ¼Ä´æÆ÷
+uint8_t ak8963GetMode(void);// CNTL ï¿½Ä´ï¿½ï¿½ï¿½
 void ak8963SetMode(u8 mode);
 void ak8963Reset(void);
 
-void ak8963SetSelfTest(bool enabled);// ASTC ¼Ä´æÆ÷
+void ak8963SetSelfTest(bool enabled);// ASTC ï¿½Ä´ï¿½ï¿½ï¿½
 
 void ak8963DisableI2C(void); // I2CDIS
 

@@ -8,23 +8,14 @@
 #include "config_param.h"
 #include "pm.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼þ*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * stm32,nrf51822Í¨ÐÅÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/2
- * °æ±¾£ºV1.0
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 
@@ -45,7 +36,7 @@ void syslinkTask(void *param)
 	u8 dataIndex = 0;
 	u8 cksum[2] = {0};
 
-	radiolinkSetParam();	/*ÉèÖÃÎÞÏß²ÎÊý*/
+	radiolinkSetParam();	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß²ï¿½ï¿½ï¿½*/
 	
 	while(1)
 	{
@@ -72,7 +63,7 @@ void syslinkTask(void *param)
 						cksum[0] += c;
 						cksum[1] += cksum[0];
 						dataIndex = 0;
-						rxState = (c > 0) ? waitForData : waitForChksum1;	/*c=0,Êý¾Ý³¤¶ÈÎª0£¬Ð£Ñé1*/
+						rxState = (c > 0) ? waitForData : waitForChksum1;	/*c=0,ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½Îª0ï¿½ï¿½Ð£ï¿½ï¿½1*/
 					} else 
 					{
 						rxState = waitForFirstStart;
@@ -83,28 +74,28 @@ void syslinkTask(void *param)
 					cksum[0] += c;
 					cksum[1] += cksum[0];
 					dataIndex++;
-					if (dataIndex == slp.length)	/*Êý¾Ý½ÓÊÕÍê³É£¬Ð£Ñé1*/
+					if (dataIndex == slp.length)	/*ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½Ð£ï¿½ï¿½1*/
 					{
 						rxState = waitForChksum1;
 					}
 					break;
 				case waitForChksum1:
-					if (cksum[0] == c)	/*Ð£Ñé1ÕýÈ·£¬×¼±¸Ð£Ñé2*/
+					if (cksum[0] == c)	/*Ð£ï¿½ï¿½1ï¿½ï¿½È·ï¿½ï¿½×¼ï¿½ï¿½Ð£ï¿½ï¿½2*/
 					{
 						rxState = waitForChksum2;
 					} else
 					{
-						rxState = waitForFirstStart;	/*Ð£Ñé´íÎó*/
+						rxState = waitForFirstStart;	/*Ð£ï¿½ï¿½ï¿½ï¿½ï¿½*/
 						IF_DEBUG_ASSERT(1);
 					}
 					break;
 				case waitForChksum2:
-					if (cksum[1] == c)	/*ËùÓÐÐ£ÑéÕýÈ·*/
+					if (cksum[1] == c)	/*ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½È·*/
 					{
-						syslinkRouteIncommingPacket(&slp);	/*¶Ô½ÓÊÕµ½µÄÊý¾Ý°ü·ÖÀà´¦Àí*/
+						syslinkRouteIncommingPacket(&slp);	/*ï¿½Ô½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½à´¦ï¿½ï¿½*/
 					} else
 					{
-						rxState = waitForFirstStart;	/*Ð£Ñé´íÎó*/
+						rxState = waitForFirstStart;	/*Ð£ï¿½ï¿½ï¿½ï¿½ï¿½*/
 						IF_DEBUG_ASSERT(1);
 					}
 					rxState = waitForFirstStart;
@@ -114,18 +105,18 @@ void syslinkTask(void *param)
 					break;
 			}
 		}
-		else	/*³¬Ê±´¦Àí*/
+		else	/*ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½*/
 		{
 			rxState = waitForFirstStart;
 		}
 	}
 }
-/*Êý¾Ý°ü·ÖÀà´¦Àí*/
+/*ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½à´¦ï¿½ï¿½*/
 static void syslinkRouteIncommingPacket(SyslinkPacket *slp)
 {
 	uint8_t groupType;
 
-	groupType = slp->type & SYSLINK_GROUP_MASK;	/*type Êý¾ÝÀàÐÍ*/
+	groupType = slp->type & SYSLINK_GROUP_MASK;	/*type ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	switch (groupType)
 	{
 		case SYSLINK_RADIO_GROUP:	/*type[7:4]=0x00*/
@@ -158,7 +149,7 @@ bool syslinkTest()
 	return isInit;
 }
 
-int syslinkSendPacket(SyslinkPacket *slp)	/*´ò°üÊý¾Ý ´®¿ÚDMA·¢ËÍ*/
+int syslinkSendPacket(SyslinkPacket *slp)	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½DMAï¿½ï¿½ï¿½ï¿½*/
 {
 	int i = 0;
 	int dataSize;
@@ -184,7 +175,7 @@ int syslinkSendPacket(SyslinkPacket *slp)	/*´ò°üÊý¾Ý ´®¿ÚDMA·¢ËÍ*/
 	sendBuffer[dataSize-2] = cksum[0];
 	sendBuffer[dataSize-1] = cksum[1];
 
-	uartslkSendDataDmaBlocking(dataSize, sendBuffer);	/*´®¿ÚDMA·¢ËÍ*/
+	uartslkSendDataDmaBlocking(dataSize, sendBuffer);	/*ï¿½ï¿½ï¿½ï¿½DMAï¿½ï¿½ï¿½ï¿½*/
 
 	xSemaphoreGive(syslinkAccess);
 

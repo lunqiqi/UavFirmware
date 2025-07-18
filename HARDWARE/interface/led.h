@@ -4,16 +4,7 @@
 #include <stdbool.h>
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * LEDÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 #define LED_NUM 5
@@ -27,21 +18,21 @@ typedef enum
 	LED_RED_R,
 } led_e;
 
-#define DATA_RX_LED		LED_GREEN_L	/*ÎÞÏßÊý¾Ý½ÓÊÕÖ¸Ê¾µÆ*/
-#define DATA_TX_LED		LED_RED_L	/*ÎÞÏßÊý¾Ý·¢ËÍÖ¸Ê¾µÆ*/
-#define CHG_LED 		LED_BLUE_L	/*³äµçÖ¸Ê¾µÆ*/
-#define LOWBAT_LED		LED_RED_R	/*µç³ØµÍµçÁ¿Ö¸Ê¾µÆ*/
-#define SYS_LED   		LED_GREEN_R	/*ÏµÍ³ÐÄÌøÖ¸Ê¾µÆ*/
-#define ERR_LED1       	LED_RED_L	/*³ö´íÖ¸Ê¾µÆ1*/
-#define ERR_LED2       	LED_RED_R	/*³ö´íÖ¸Ê¾µÆ2*/
+#define DATA_RX_LED		LED_GREEN_L	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½*/
+#define DATA_TX_LED		LED_RED_L	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½*/
+#define CHG_LED 		LED_BLUE_L	/*ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½*/
+#define LOWBAT_LED		LED_RED_R	/*ï¿½ï¿½ØµÍµï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½*/
+#define SYS_LED   		LED_GREEN_R	/*ÏµÍ³ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½*/
+#define ERR_LED1       	LED_RED_L	/*ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½1*/
+#define ERR_LED2       	LED_RED_R	/*ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½2*/
 
 
-void ledInit(void);		/* LED³õÊ¼»¯ */
-bool ledTest(void);		/* LED²âÊÔ */
-void ledSetAll(void);	/* ¿ªÆôËùÓÐLED */
-void ledClearAll(void);	/* ¹Ø±ÕËùÓÐLED */
-void ledSet(led_e led, bool value);	/* ÉèÖÃÄ³¸öLEDµÄ×´Ì¬ */
-void ledFlashOne(led_e led, u32 onTime, u32 offTime);	/*LEDÉÁË¸1´Î*/
+void ledInit(void);		/* LEDï¿½ï¿½Ê¼ï¿½ï¿½ */
+bool ledTest(void);		/* LEDï¿½ï¿½ï¿½ï¿½ */
+void ledSetAll(void);	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LED */
+void ledClearAll(void);	/* ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½LED */
+void ledSet(led_e led, bool value);	/* ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½LEDï¿½ï¿½×´Ì¬ */
+void ledFlashOne(led_e led, u32 onTime, u32 offTime);	/*LEDï¿½ï¿½Ë¸1ï¿½ï¿½*/
 
 
 #endif

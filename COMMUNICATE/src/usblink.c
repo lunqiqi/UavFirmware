@@ -9,26 +9,17 @@
 #include "usbd_cdc_vcp.h"
 #include "usbd_usr.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼þ*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * USBÍ¨ÐÅÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
-#define USBLINK_TX_QUEUE_SIZE 	30 /*½ÓÊÕ¶ÓÁÐ¸öÊý*/
+#define USBLINK_TX_QUEUE_SIZE 	30 /*ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½*/
 
 static enum
 {
@@ -45,19 +36,19 @@ static atkp_t rxPacket;
 static xQueueHandle  txQueue;
 
 
-/*usbÁ¬½Ó³õÊ¼»¯*/
+/*usbï¿½ï¿½ï¿½Ó³ï¿½Ê¼ï¿½ï¿½*/
 void usblinkInit()
 {
 	if(isInit) return;
 	
 	usbd_cdc_vcp_Init();
-	/*´´½¨·¢ËÍ¶ÓÁÐ£¬USBLINK_TX_QUEUE_SIZE¸öÏûÏ¢*/
+	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½Ð£ï¿½USBLINK_TX_QUEUE_SIZEï¿½ï¿½ï¿½ï¿½Ï¢*/
 	txQueue = xQueueCreate(USBLINK_TX_QUEUE_SIZE, sizeof(atkp_t));
 	ASSERT(txQueue);
 	isInit = true;
 }
 
-/*usbÁ¬½Ó·¢ËÍatkpPacket*/
+/*usbï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½atkpPacket*/
 bool usblinkSendPacket(const atkp_t *p)
 {
 	ASSERT(p);
@@ -65,13 +56,13 @@ bool usblinkSendPacket(const atkp_t *p)
 	return xQueueSend(txQueue, p, 0);	
 }
 
-//»ñÈ¡Ê£Óà¿ÉÓÃtxQueue¸öÊý
+//ï¿½ï¿½È¡Ê£ï¿½ï¿½ï¿½ï¿½ï¿½txQueueï¿½ï¿½ï¿½ï¿½
 int usblinkGetFreeTxQueuePackets(void)	
 {
 	return (USBLINK_TX_QUEUE_SIZE - uxQueueMessagesWaiting(txQueue));
 }
 
-//USB·¢ËÍATKPPacketÈÎÎñ
+//USBï¿½ï¿½ï¿½ï¿½ATKPPacketï¿½ï¿½ï¿½ï¿½
 void usblinkTxTask(void *param)
 {
 	atkp_t p;
@@ -99,7 +90,7 @@ void usblinkTxTask(void *param)
 	}
 }
 
-//USBÐéÄâ´®¿Ú½ÓÊÕATKPPacketÈÎÎñ
+//USBï¿½ï¿½ï¿½â´®ï¿½Ú½ï¿½ï¿½ï¿½ATKPPacketï¿½ï¿½ï¿½ï¿½
 void usblinkRxTask(void *param)
 {
 	u8 c;
@@ -130,7 +121,7 @@ void usblinkRxTask(void *param)
 					{
 						rxPacket.dataLen = c;
 						dataIndex = 0;
-						rxState = (c > 0) ? waitForData : waitForChksum1;	/*c=0,Êý¾Ý³¤¶ÈÎª0£¬Ð£Ñé1*/
+						rxState = (c > 0) ? waitForData : waitForChksum1;	/*c=0,ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½Îª0ï¿½ï¿½Ð£ï¿½ï¿½1*/
 						cksum += c;
 					} else 
 					{
@@ -147,12 +138,12 @@ void usblinkRxTask(void *param)
 					}
 					break;
 				case waitForChksum1:
-					if (cksum == c)	/*ËùÓÐÐ£ÑéÕýÈ·*/
+					if (cksum == c)	/*ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½È·*/
 					{
 						ledseqRun(DATA_RX_LED, seq_linkup);
 						atkpReceivePacketBlocking(&rxPacket);
 					} 
-					else	/*Ð£Ñé´íÎó*/
+					else	/*Ð£ï¿½ï¿½ï¿½ï¿½ï¿½*/
 					{
 						rxState = waitForStartByte1;	
 						IF_DEBUG_ASSERT(1);
@@ -164,7 +155,7 @@ void usblinkRxTask(void *param)
 					break;
 			}
 		}
-		else	/*³¬Ê±´¦Àí*/
+		else	/*ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½*/
 		{
 			rxState = waitForStartByte1;
 		}

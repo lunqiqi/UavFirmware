@@ -1,30 +1,19 @@
 #include "module_detect.h"
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼þ*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "timers.h"
 
-/********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * À©Õ¹Ä£¿é¼ì²âÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2018/5/2
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
-********************************************************************************/
 
-#define  ADC_SAMPLE_NUM		10	 //²ÉÑù´ÎÊý
 
-#define  ADC_LED_RING		2048 //RGBµÆ»µÄ£¿éµÄR1:R2 = 10K :10K
-#define  ADC_WIFI_CAMERA	4095 //ÉãÏñÍ·Ä£¿éµÄR1 = 10K 
-#define  ADC_OPTICAL_FLOW	2815 //¹âÁ÷Ä£¿é2µÄR1:R2 = 10K :22K
-#define  ADC_MODULE1		1280 //MODULE1Ä£¿é1µÄR1:R2 = 22K :10K
+#define  ADC_SAMPLE_NUM		10	 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-#define  ADC_MODULE_RANGE	50	 //ÔÊÐíÄ£¿éµçÑ¹±ä»¯·¶Î§Öµ
+#define  ADC_LED_RING		2048 //RGBï¿½Æ»ï¿½Ä£ï¿½ï¿½ï¿½R1:R2 = 10K :10K
+#define  ADC_WIFI_CAMERA	4095 //ï¿½ï¿½ï¿½ï¿½Í·Ä£ï¿½ï¿½ï¿½R1 = 10K 
+#define  ADC_OPTICAL_FLOW	2815 //ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½2ï¿½ï¿½R1:R2 = 10K :22K
+#define  ADC_MODULE1		1280 //MODULE1Ä£ï¿½ï¿½1ï¿½ï¿½R1:R2 = 22K :10K
+
+#define  ADC_MODULE_RANGE	50	 //ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ñ¹ï¿½ä»¯ï¿½ï¿½Î§Öµ
 
 static GPIO_InitTypeDef  GPIO_InitStructure;
 static enum expModuleID moduleID = NO_MODULE;
@@ -35,23 +24,23 @@ static u32 my_abs(int value)
 	return (value >=0 ? value : -value);
 }
 	
-void expModuleDriverInit(void)	/*À©Õ¹Ä£¿éÇý¶¯³õÊ¼»¯*/
+void expModuleDriverInit(void)	/*ï¿½ï¿½Õ¹Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½*/
 {
 	ADC_InitTypeDef  		ADC_InitStructure;
 	ADC_CommonInitTypeDef 	ADC_CommonInitStructure;
 	DMA_InitTypeDef       	DMA_InitStructure;
 	//GPIO_InitTypeDef      	GPIO_InitStructure;
 	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);	//Ê¹ÄÜPORTBÊ±ÖÓ
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);  	//Ê¹ÄÜADC1Ê±ÖÓ
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);	//Ê¹ÄÜDMAÊ±ÖÓ
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);	//Ê¹ï¿½ï¿½PORTBÊ±ï¿½ï¿½
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);  	//Ê¹ï¿½ï¿½ADC1Ê±ï¿½ï¿½
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);	//Ê¹ï¿½ï¿½DMAÊ±ï¿½ï¿½
 	
 	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_1;					//PB1
-	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_AN;				//Ä£ÄâÊäÈë
-	GPIO_InitStructure.GPIO_PuPd=GPIO_PuPd_NOPULL;        	//²»ÉÏÀ­¡¢ÏÂÀ­
-	GPIO_Init(GPIOB,&GPIO_InitStructure);              		//³õÊ¼»¯PB1
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_AN;				//Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_InitStructure.GPIO_PuPd=GPIO_PuPd_NOPULL;        	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GPIO_Init(GPIOB,&GPIO_InitStructure);              		//ï¿½ï¿½Ê¼ï¿½ï¿½PB1
 	
-	/*DMA2_Stream0 channel0 ÅäÖÃ*/
+	/*DMA2_Stream0 channel0 ï¿½ï¿½ï¿½ï¿½*/
 	DMA_DeInit(DMA2_Stream0);
 	DMA_InitStructure.DMA_Channel = DMA_Channel_0;  
 	DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)&ADC1->DR;
@@ -69,49 +58,49 @@ void expModuleDriverInit(void)	/*À©Õ¹Ä£¿éÇý¶¯³õÊ¼»¯*/
 	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
 	DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
 	DMA_Init(DMA2_Stream0, &DMA_InitStructure);
-	DMA_Cmd(DMA2_Stream0, ENABLE);//Ê¹ÄÜDMA2_Stream0
+	DMA_Cmd(DMA2_Stream0, ENABLE);//Ê¹ï¿½ï¿½DMA2_Stream0
 	
-	/*ADC1 ÅäÖÃ*/
-	ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;//¶ÀÁ¢Ä£Ê½
-	ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;//Á½¸ö²ÉÑù½×¶ÎÖ®¼äµÄÑÓ³Ù5¸öÊ±ÖÓ
-	ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled; //¶à¸öADCÄ£Ê½DMAÊ§ÄÜ
-	ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4;//Ô¤·ÖÆµ4·ÖÆµ¡£ADCCLK=PCLK2/4=100/4=25Mhz,ADCÊ±ÖÓ×îºÃ²»Òª³¬¹ý36Mhz 
-	ADC_CommonInit(&ADC_CommonInitStructure);//³õÊ¼»¯
+	/*ADC1 ï¿½ï¿½ï¿½ï¿½*/
+	ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;//ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+	ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¶ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ó³ï¿½5ï¿½ï¿½Ê±ï¿½ï¿½
+	ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled; //ï¿½ï¿½ï¿½ADCÄ£Ê½DMAÊ§ï¿½ï¿½
+	ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4;//Ô¤ï¿½ï¿½Æµ4ï¿½ï¿½Æµï¿½ï¿½ADCCLK=PCLK2/4=100/4=25Mhz,ADCÊ±ï¿½ï¿½ï¿½ï¿½Ã²ï¿½Òªï¿½ï¿½ï¿½ï¿½36Mhz 
+	ADC_CommonInit(&ADC_CommonInitStructure);//ï¿½ï¿½Ê¼ï¿½ï¿½
 
 	ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;//12Î»Ä£Ê½
-	ADC_InitStructure.ADC_ScanConvMode = DISABLE;//·ÇÉ¨ÃèÄ£Ê½	
-	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;//Á¬Ðø×ª»»
-	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;//½ûÖ¹´¥·¢¼ì²â£¬Ê¹ÓÃÈí¼þ´¥·¢
-	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//ÓÒ¶ÔÆë	
-	ADC_InitStructure.ADC_NbrOfConversion = 1;//1¸ö×ª»»ÔÚ¹æÔòÐòÁÐÖÐ Ò²¾ÍÊÇÖ»×ª»»¹æÔòÐòÁÐ1 
-	ADC_Init(ADC1, &ADC_InitStructure);//ADC³õÊ¼»¯
+	ADC_InitStructure.ADC_ScanConvMode = DISABLE;//ï¿½ï¿½É¨ï¿½ï¿½Ä£Ê½	
+	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;//ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
+	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;//ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£¬Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//ï¿½Ò¶ï¿½ï¿½ï¿½	
+	ADC_InitStructure.ADC_NbrOfConversion = 1;//1ï¿½ï¿½×ªï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ò²ï¿½ï¿½ï¿½ï¿½Ö»×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1 
+	ADC_Init(ADC1, &ADC_InitStructure);//ADCï¿½ï¿½Ê¼ï¿½ï¿½
 	
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_9,1,ADC_SampleTime_480Cycles);//ÅäÖÃPB1¹æÔòÍ¨µÀ9
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_9,1,ADC_SampleTime_480Cycles);//ï¿½ï¿½ï¿½ï¿½PB1ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½9
 	ADC_DMARequestAfterLastTransferCmd(ADC1, ENABLE);
-	ADC_DMACmd(ADC1, ENABLE);//Ê¹ÄÜDMA
-	ADC_Cmd(ADC1, ENABLE);//Ê¹ÄÜAD×ª»»Æ÷
-	ADC_SoftwareStartConv(ADC1);//¿ªÆô×ª»»
+	ADC_DMACmd(ADC1, ENABLE);//Ê¹ï¿½ï¿½DMA
+	ADC_Cmd(ADC1, ENABLE);//Ê¹ï¿½ï¿½AD×ªï¿½ï¿½ï¿½ï¿½
+	ADC_SoftwareStartConv(ADC1);//ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
 }
 
 enum expModuleID getModuleDriverID(void)
 {	
-	ADC_Cmd(ADC1, DISABLE);//¹Ø±ÕAD×ª»»Æ÷
+	ADC_Cmd(ADC1, DISABLE);//ï¿½Ø±ï¿½AD×ªï¿½ï¿½ï¿½ï¿½
 	
 	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_1;					//PB1
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;			//ÊäÈëÄ£Ê½
-	GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;			//ÉÏÀ­
-	GPIO_Init(GPIOB,&GPIO_InitStructure);              		//³õÊ¼»¯PB1
-	u8 state1 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1);	//¶ÁÈ¡×´Ì¬1
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;			//ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+	GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;			//ï¿½ï¿½ï¿½ï¿½
+	GPIO_Init(GPIOB,&GPIO_InitStructure);              		//ï¿½ï¿½Ê¼ï¿½ï¿½PB1
+	u8 state1 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1);	//ï¿½ï¿½È¡×´Ì¬1
 	
-	GPIO_InitStructure.GPIO_PuPd=GPIO_PuPd_DOWN;        	//ÏÂÀ­
-	GPIO_Init(GPIOB,&GPIO_InitStructure);              		//³õÊ¼»¯PB1
-	u8 state2 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1);	//¶ÁÈ¡×´Ì¬2
+	GPIO_InitStructure.GPIO_PuPd=GPIO_PuPd_DOWN;        	//ï¿½ï¿½ï¿½ï¿½
+	GPIO_Init(GPIOB,&GPIO_InitStructure);              		//ï¿½ï¿½Ê¼ï¿½ï¿½PB1
+	u8 state2 = GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1);	//ï¿½ï¿½È¡×´Ì¬2
 	
-	if(state1==SET && state2==RESET)//Ã»ÓÐ¼ì²âµ½Ä£¿é²åÉÏ
+	if(state1==SET && state2==RESET)//Ã»ï¿½Ð¼ï¿½âµ½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		moduleID = NO_MODULE;
 	}
-	else //¼ì²âµ½Ä£¿é²åÉÏ
+	else //ï¿½ï¿½âµ½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		u32 sum=0;
 		for(int i=0; i<ADC_SAMPLE_NUM; i++)
@@ -132,11 +121,11 @@ enum expModuleID getModuleDriverID(void)
 			moduleID = NO_MODULE;
 			
 		GPIO_InitStructure.GPIO_Pin=GPIO_Pin_1;			//PB1
-		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;	//Ä£ÄâÊäÈëÄ£Ê½
-		GPIO_Init(GPIOB,&GPIO_InitStructure);           //³õÊ¼»¯PB1
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;	//Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+		GPIO_Init(GPIOB,&GPIO_InitStructure);           //ï¿½ï¿½Ê¼ï¿½ï¿½PB1
 
-		ADC_Cmd(ADC1, ENABLE);		//Ê¹ÄÜAD×ª»»Æ÷
-		ADC_SoftwareStartConv(ADC1);//¿ªÆôAD×ª»»Æ÷
+		ADC_Cmd(ADC1, ENABLE);		//Ê¹ï¿½ï¿½AD×ªï¿½ï¿½ï¿½ï¿½
+		ADC_SoftwareStartConv(ADC1);//ï¿½ï¿½ï¿½ï¿½AD×ªï¿½ï¿½ï¿½ï¿½
 	}
 
 	return moduleID;

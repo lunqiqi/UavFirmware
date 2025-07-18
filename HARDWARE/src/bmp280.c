@@ -5,19 +5,10 @@
 #include "bmp280.h"
 
 /********************************************************************************	 
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly
- * BMP280驱动代码	
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2017/5/12
- * 版本：V1.3
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
-/*bmp280 气压和温度过采样 工作模式*/
+/*bmp280 锟斤拷压锟斤拷锟铰度癸拷锟斤拷锟斤拷 锟斤拷锟斤拷模式*/
 #define BMP280_PRESSURE_OSR			(BMP280_OVERSAMP_8X)
 #define BMP280_TEMPERATURE_OSR		(BMP280_OVERSAMP_8X)
 #define BMP280_MODE					(BMP280_PRESSURE_OSR << 2 | BMP280_TEMPERATURE_OSR << 5 | BMP280_NORMAL_MODE)
@@ -63,17 +54,17 @@ bool bmp280Init(I2C_Dev *i2cPort)
 
     delay_xms(50);
 	
-	i2cdevReadByte(I2Cx, devAddr, BMP280_CHIP_ID, &bmp280ID);	/* 读取bmp280 ID*/
+	i2cdevReadByte(I2Cx, devAddr, BMP280_CHIP_ID, &bmp280ID);	/* 锟斤拷取bmp280 ID*/
 	
 	if(bmp280ID == BMP280_DEFAULT_CHIP_ID)
 		printf("BMP280 ID IS: 0x%X\n",bmp280ID);
     else 
         return false;
 
-    /* 读取校准数据 */
+    /* 锟斤拷取校准锟斤拷锟斤拷 */
     i2cdevRead(I2Cx, devAddr, BMP280_TEMPERATURE_CALIB_DIG_T1_LSB_REG, 24, (u8 *)&bmp280Cal);	
 	i2cdevWriteByte(I2Cx, devAddr, BMP280_CTRL_MEAS_REG, BMP280_MODE);
-	i2cdevWriteByte(I2Cx, devAddr, BMP280_CONFIG_REG, 5<<2);		/*配置IIR滤波*/
+	i2cdevWriteByte(I2Cx, devAddr, BMP280_CONFIG_REG, 5<<2);		/*锟斤拷锟斤拷IIR锟剿诧拷*/
 	
 //	printf("BMP280 Calibrate Registor Are: \r\n");
 //	for(i=0;i<24;i++)
@@ -133,7 +124,7 @@ u32 bmp280CompensateP(s32 adcP)
 #define FILTER_NUM	5
 #define FILTER_A	0.1f
 
-/*限幅平均滤波法*/
+/*锟睫凤拷平锟斤拷锟剿诧拷锟斤拷*/
 void pressureFilter(float* in, float* out)
 {	
 	static u8 i=0;
@@ -176,10 +167,10 @@ void bmp280GetData(float* pressure, float* temperature, float* asl)
 	p = bmp280CompensateP(bmp280RawPressure)/25600.0;		
 
 	pressureFilter(&p,pressure);
-	*temperature = (float)t;/*单位度*/
-//	*pressure = (float)p ;	/*单位hPa*/	
+	*temperature = (float)t;/*锟斤拷位锟斤拷*/
+//	*pressure = (float)p ;	/*锟斤拷位hPa*/	
 	
-	*asl=bmp280PressureToAltitude(pressure);	/*转换成海拔*/	
+	*asl=bmp280PressureToAltitude(pressure);	/*转锟斤拷锟缴猴拷锟斤拷*/	
 }
 
 /**

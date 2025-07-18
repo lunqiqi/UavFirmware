@@ -3,20 +3,9 @@
 #include "led.h"
 #include "delay.h"
 
-/********************************************************************************
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly
- * LED驱动代码
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2017/5/12
- * 版本：V1.3
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
-********************************************************************************/
 
-/*LED 极性*/
+
+/*LED 锟斤拷锟斤拷*/
 #define LED_POL_POS 0
 #define LED_POL_NEG 1
 
@@ -38,14 +27,14 @@ static led_t leds[LED_NUM] =
     [LED_RED_R] 	= {GPIOC, GPIO_Pin_14, LED_POL_NEG},
 };
 
-/* LED初始化 */
+/* LED锟斤拷始锟斤拷 */
 void ledInit(void)
 {
     if(isInit)	return;
 
     GPIO_InitTypeDef GPIO_InitStructure;
 
-    /*使能led时钟*/
+    /*使锟斤拷led时锟斤拷*/
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
@@ -71,7 +60,7 @@ void ledInit(void)
 
 }
 
-/* LED测试 */
+/* LED锟斤拷锟斤拷 */
 bool ledTest(void)
 {
     ledSet(LED_GREEN_L, 1);
@@ -93,7 +82,7 @@ bool ledTest(void)
     return isInit;
 }
 
-/*关闭所有LED*/
+/*锟截憋拷锟斤拷锟斤拷LED*/
 void ledClearAll(void)
 {
     for(u8 i = 0; i < LED_NUM; i++)
@@ -102,7 +91,7 @@ void ledClearAll(void)
     }
 }
 
-/*打开所有LED*/
+/*锟斤拷锟斤拷锟斤拷LED*/
 void ledSetAll(void)
 {
     for(u8 i = 0; i < LED_NUM; i++)
@@ -110,7 +99,7 @@ void ledSetAll(void)
         ledSet((led_e)i, 1);
     }
 }
-/*LED闪烁1次*/
+/*LED锟斤拷烁1锟斤拷*/
 void ledFlashOne(led_e led, u32 onTime, u32 offTime)
 {
     ledSet(led, 1);
@@ -119,7 +108,7 @@ void ledFlashOne(led_e led, u32 onTime, u32 offTime)
     delay_xms(offTime);
 }
 
-/* 设置某个LED的状态 */
+/* 锟斤拷锟斤拷某锟斤拷LED锟斤拷状态 */
 void ledSet(led_e led, bool value)
 {
     if (led > LED_NUM)

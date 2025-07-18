@@ -3,20 +3,11 @@
 #include "stabilizer_types.h"
 
 /********************************************************************************	 
- * ±¾³ÌĞòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßĞí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * ËÄÖá¿Õ·­¿ØÖÆ´úÂë	
- * ÕıµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓĞ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 
-void flyerFlipCheck(setpoint_t* setpoint,control_t* control,state_t* state);	/* Flyer ·­¹ö¼ì²â*/
+void flyerFlipCheck(setpoint_t* setpoint,control_t* control,state_t* state);	/* Flyer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
 void setFlipDir(u8 dir);
 

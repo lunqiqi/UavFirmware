@@ -4,40 +4,28 @@
 #include "stdbool.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * VL53 IICÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2018/5/2
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
- *
- * ÐÞ¸ÄËµÃ÷:
- * °æ±¾V1.3 Ôö¼Ó¶Ôvl53l1xµÄIICÇý¶¯¡£
+
 ********************************************************************************/
 
-/*IO·½ÏòÉèÖÃ*/
-#define SDA_IN()  {GPIOB->MODER&=~(3<<(4*2));GPIOB->MODER|=0<<4*2;}	//PB4ÊäÈëÄ£Ê½
-#define SDA_OUT() {GPIOB->MODER&=~(3<<(4*2));GPIOB->MODER|=1<<4*2;} //PB4Êä³öÄ£Ê½
-/*IO²Ù×÷º¯Êý*/	 
+/*IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+#define SDA_IN()  {GPIOB->MODER&=~(3<<(4*2));GPIOB->MODER|=0<<4*2;}	//PB4ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+#define SDA_OUT() {GPIOB->MODER&=~(3<<(4*2));GPIOB->MODER|=1<<4*2;} //PB4ï¿½ï¿½ï¿½Ä£Ê½
+/*IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/	 
 #define VL53_SCL    PBout(5) 	//SCL
 #define VL53_SDA    PBout(4) 	//SDA	 
-#define READ_SDA	PBin(4)  	//ÊäÈëSDA 
+#define READ_SDA	PBin(4)  	//ï¿½ï¿½ï¿½ï¿½SDA 
 
 
-//VL53ËùÓÐ²Ù×÷º¯Êý
-void vl53IICInit(void);			/*³õÊ¼»¯VL53µÄIO¿Ú*/				 
-u8 vl53IICReadByte(u8 devaddr,u8 addr, u8* data);		/*¶ÁÒ»×Ö½Ú*/
-void vl53IICWriteByte(u8 devaddr,u8 addr,u8 data);		/*Ð´Ò»×Ö½Ú*/
-void vl53IICRead(u8 devaddr,u8 addr,u8 len,u8 *rbuf);	/*Á¬Ðø¶ÁÈ¡¶à¸ö×Ö½Ú*/
-void vl53IICWrite(u8 devaddr,u8 addr,u8 len,u8 *wbuf);	/*Á¬ÐøÐ´Èë¶à¸ö×Ö½Ú*/
-bool vl53IICWriteBit(u8 devaddr,u8 addr, u8 bitNum, u8 data);	/*iic Ð´ÈëÄ³¸öÎ»*/
+//VL53ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void vl53IICInit(void);			/*ï¿½ï¿½Ê¼ï¿½ï¿½VL53ï¿½ï¿½IOï¿½ï¿½*/				 
+u8 vl53IICReadByte(u8 devaddr,u8 addr, u8* data);		/*ï¿½ï¿½Ò»ï¿½Ö½ï¿½*/
+void vl53IICWriteByte(u8 devaddr,u8 addr,u8 data);		/*Ð´Ò»ï¿½Ö½ï¿½*/
+void vl53IICRead(u8 devaddr,u8 addr,u8 len,u8 *rbuf);	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+void vl53IICWrite(u8 devaddr,u8 addr,u8 len,u8 *wbuf);	/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+bool vl53IICWriteBit(u8 devaddr,u8 addr, u8 bitNum, u8 data);	/*iic Ð´ï¿½ï¿½Ä³ï¿½ï¿½Î»*/
 
-void vl53l1Read(u8 devaddr,u16 addr,u8 len,u8 *rbuf);	/*Á¬Ðø¶ÁÈ¡¶à¸ö×Ö½Ú*/
-void vl53l1Write(u8 devaddr,u16 addr,u8 len,u8 *wbuf);	/*Á¬ÐøÐ´Èë¶à¸ö×Ö½Ú*/
+void vl53l1Read(u8 devaddr,u16 addr,u8 len,u8 *rbuf);	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+void vl53l1Write(u8 devaddr,u16 addr,u8 len,u8 *wbuf);	/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
 	
 #endif 
 

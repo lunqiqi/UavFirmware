@@ -5,19 +5,7 @@
 #include "module_mgt.h"
 
 /********************************************************************************	 
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly
- * vl53l0x底层驱动代码, 移植自crazyflie	
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2018/5/2
- * 版本：V1.3
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
- *
- * 修改说明:
- * 版本V1.3 修改为底层驱动，方便应用层vl53lxx.c调用。
+
 ********************************************************************************/
 
 
@@ -137,8 +125,8 @@ typedef enum vcselPeriodType_t { VcselPeriodPreRange, VcselPeriodFinalRange } vc
 /** Default constructor, uses external I2C address.
  * @see VL53L0X_DEFAULT_ADDRESS
  */
-extern uint16_t measurement_timing_budget_ms;	/*vl53l0x测量时间*/
-void vl53l0xSetParam(void);		/*设置vl53l0x 参数*/
+extern uint16_t measurement_timing_budget_ms;	/*vl53l0x锟斤拷锟斤拷时锟斤拷*/
+void vl53l0xSetParam(void);		/*锟斤拷锟斤拷vl53l0x 锟斤拷锟斤拷*/
 
 /** Verify the I2C connection.
  * Make sure the device is connected and responds as expected.

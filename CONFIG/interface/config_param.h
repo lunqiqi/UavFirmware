@@ -4,16 +4,7 @@
 #include <stdbool.h>
 
 /********************************************************************************	 
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly
- * 配置参数驱动代码	
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2017/5/12
- * 版本：V1.3
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 												
 typedef struct 
@@ -62,23 +53,23 @@ typedef struct
 
 typedef struct	
 {
-	u8 version;				/*软件版本号*/
-	pidParam_t pidAngle;	/*角度PID*/	
-	pidParam_t pidRate;		/*角速度PID*/	
-	pidParamPos_t pidPos;	/*位置PID*/
-//	accBias_t accBias;		/*加速度校准值*/
-//	magBias_t magBias;		/*磁力计校准值*/
-	float trimP;			/*pitch微调*/
-	float trimR;			/*roll微调*/
-	u16 thrustBase;			/*油门基础值*/
-	u8 cksum;				/*校验*/
+	u8 version;				/*锟斤拷锟斤拷锟芥本锟斤拷*/
+	pidParam_t pidAngle;	/*锟角讹拷PID*/	
+	pidParam_t pidRate;		/*锟斤拷锟劫讹拷PID*/	
+	pidParamPos_t pidPos;	/*位锟斤拷PID*/
+//	accBias_t accBias;		/*锟斤拷锟劫讹拷校准值*/
+//	magBias_t magBias;		/*锟斤拷锟斤拷锟斤拷校准值*/
+	float trimP;			/*pitch微锟斤拷*/
+	float trimR;			/*roll微锟斤拷*/
+	u16 thrustBase;			/*锟斤拷锟脚伙拷锟斤拷值*/
+	u8 cksum;				/*校锟斤拷*/
 } configParam_t;
 
 
 extern configParam_t configParam;
 
-void configParamInit(void);	/*参数配置初始化*/
-void configParamTask(void* param);	/*参数配置任务*/
+void configParamInit(void);	/*锟斤拷锟斤拷锟斤拷锟矫筹拷始锟斤拷*/
+void configParamTask(void* param);	/*锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷*/
 bool configParamTest(void);
 
 void configParamGiveSemaphore(void);

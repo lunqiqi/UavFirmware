@@ -1,60 +1,48 @@
-#include "system.h"	/*Í·ÎÄ¼þ¼¯ºÏ*/
+#include "system.h"	/*Í·ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-/********************************************************************************
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * main.c
- * °üÀ¨ÏµÍ³³õÊ¼»¯ºÍ´´½¨ÈÎÎñ
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
-********************************************************************************/
+
 
 TaskHandle_t startTaskHandle;
 static void startTask(void *arg);
 
 int main()
 {
-    systemInit();			/*µ×²ãÓ²¼þ³õÊ¼»¯*/
+    systemInit();			/*ï¿½×²ï¿½Ó²ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½*/
 
-    xTaskCreate(startTask, "START_TASK", 300, NULL, 2, &startTaskHandle);	/*´´½¨ÆðÊ¼ÈÎÎñ*/
+    xTaskCreate(startTask, "START_TASK", 300, NULL, 2, &startTaskHandle);	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½*/
 
-    vTaskStartScheduler();	/*¿ªÆôÈÎÎñµ÷¶È*/
+    vTaskStartScheduler();	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
     while(1) {};
 }
-/*´´½¨ÈÎÎñ*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 void startTask(void *arg)
 {
-    taskENTER_CRITICAL();	/*½øÈëÁÙ½çÇø*/
+    taskENTER_CRITICAL();	/*ï¿½ï¿½ï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½*/
 
-    xTaskCreate(radiolinkTask, "RADIOLINK", 150, NULL, 5, NULL);		/*´´½¨ÎÞÏßÁ¬½ÓÈÎÎñ*/
+    xTaskCreate(radiolinkTask, "RADIOLINK", 150, NULL, 5, NULL);		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-    xTaskCreate(usblinkRxTask, "USBLINK_RX", 150, NULL, 4, NULL);		/*´´½¨usb½ÓÊÕÈÎÎñ*/
-    xTaskCreate(usblinkTxTask, "USBLINK_TX", 150, NULL, 3, NULL);		/*´´½¨usb·¢ËÍÈÎÎñ*/
+    xTaskCreate(usblinkRxTask, "USBLINK_RX", 150, NULL, 4, NULL);		/*ï¿½ï¿½ï¿½ï¿½usbï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+    xTaskCreate(usblinkTxTask, "USBLINK_TX", 150, NULL, 3, NULL);		/*ï¿½ï¿½ï¿½ï¿½usbï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-    xTaskCreate(atkpTxTask, "ATKP_TX", 150, NULL, 3, NULL);				/*´´½¨atkp·¢ËÍÈÎÎñÈÎÎñ*/
-    xTaskCreate(atkpRxAnlTask, "ATKP_RX_ANL", 300, NULL, 6, NULL);		/*´´½¨atkp½âÎöÈÎÎñ*/
+    xTaskCreate(atkpTxTask, "ATKP_TX", 150, NULL, 3, NULL);				/*ï¿½ï¿½ï¿½ï¿½atkpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+    xTaskCreate(atkpRxAnlTask, "ATKP_RX_ANL", 300, NULL, 6, NULL);		/*ï¿½ï¿½ï¿½ï¿½atkpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-    xTaskCreate(configParamTask, "CONFIG_TASK", 150, NULL, 1, NULL);	/*´´½¨²ÎÊýÅäÖÃÈÎÎñ*/
+    xTaskCreate(configParamTask, "CONFIG_TASK", 150, NULL, 1, NULL);	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-    xTaskCreate(pmTask, "PWRMGNT", 150, NULL, 2, NULL);					/*´´½¨µçÔ´¹ÜÀíÈÎÎñ*/
+    xTaskCreate(pmTask, "PWRMGNT", 150, NULL, 2, NULL);					/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-    xTaskCreate(sensorsTask, "SENSORS", 450, NULL, 4, NULL);			/*´´½¨´«¸ÐÆ÷´¦ÀíÈÎÎñ*/
+    xTaskCreate(sensorsTask, "SENSORS", 450, NULL, 4, NULL);			/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-    xTaskCreate(stabilizerTask, "STABILIZER", 450, NULL, 5, NULL);		/*´´½¨×ËÌ¬ÈÎÎñ*/
+    xTaskCreate(stabilizerTask, "STABILIZER", 450, NULL, 5, NULL);		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½*/
 
-    xTaskCreate(expModuleMgtTask, "EXP_MODULE", 150, NULL, 1, NULL);	/*´´½¨À©Õ¹Ä£¿é¹ÜÀíÈÎÎñ*/
+    xTaskCreate(expModuleMgtTask, "EXP_MODULE", 150, NULL, 1, NULL);	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-    printf("Free heap: %d bytes\n", xPortGetFreeHeapSize());			/*´òÓ¡Ê£Óà¶ÑÕ»´óÐ¡*/
+    printf("Free heap: %d bytes\n", xPortGetFreeHeapSize());			/*ï¿½ï¿½Ó¡Ê£ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ð¡*/
 
-    vTaskDelete(startTaskHandle);										/*É¾³ý¿ªÊ¼ÈÎÎñ*/
+    vTaskDelete(startTaskHandle);										/*É¾ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½*/
 
-    taskEXIT_CRITICAL();	/*ÍË³öÁÙ½çÇø*/
+    taskEXIT_CRITICAL();	/*ï¿½Ë³ï¿½ï¿½Ù½ï¿½ï¿½ï¿½*/
 }
 
 void vApplicationIdleHook( void )
@@ -69,7 +57,7 @@ void vApplicationIdleHook( void )
         watchdogReset();
     }
 
-    __WFI();	/*½øÈëµÍ¹¦ºÄÄ£Ê½*/
+    __WFI();	/*ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½Ä£Ê½*/
 }
 
 

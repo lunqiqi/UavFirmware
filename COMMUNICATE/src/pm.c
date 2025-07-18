@@ -12,22 +12,13 @@
 #include "stabilizer.h"
 #include "sensfusion6.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼ş*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
 
 /********************************************************************************	 
- * ±¾³ÌĞòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßĞí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * µçÔ´¹ÜÀíÇı¶¯´úÂë	
- * ÕıµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓĞ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 #if defined(__CC_ARM) 
@@ -78,7 +69,7 @@ bool pmTest(void)
 	return isInit;
 }
 
-static void pmSetBatteryVoltage(float voltage)	/*ÉèÖÃµç³ØµçÑ¹×î´ó×îĞ¡Öµ*/
+static void pmSetBatteryVoltage(float voltage)	/*ï¿½ï¿½ï¿½Ãµï¿½Øµï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡Öµ*/
 {	
 	batteryVoltage = voltage;
 	
@@ -105,7 +96,7 @@ void pmSyslinkUpdate(atkp_t *slp)
 }
 
 
-PMStates pmUpdateState()	/* ¸üĞÂµçÔ´×´Ì¬ */
+PMStates pmUpdateState()	/* ï¿½ï¿½ï¿½Âµï¿½Ô´×´Ì¬ */
 {
 	PMStates state;
 	bool isCharging = pmSyslinkInfo.chg;
@@ -131,7 +122,7 @@ PMStates pmUpdateState()	/* ¸üĞÂµçÔ´×´Ì¬ */
 	return state;
 }
 
-void pmTask(void *param)	/* µçÔ´¹ÜÀíÈÎÎñ */
+void pmTask(void *param)	/* ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 {
 	PMStates pmStateOld = battery;
 	u32 tickCount;
@@ -155,7 +146,7 @@ void pmTask(void *param)	/* µçÔ´¹ÜÀíÈÎÎñ */
 
 		if (pmState != pmStateOld)
 		{
-			switch (pmState)	/*µçÔ´×´Ì¬ÇĞ»»*/
+			switch (pmState)	/*ï¿½ï¿½Ô´×´Ì¬ï¿½Ğ»ï¿½*/
 			{
 				case charged:				
 					ledseqStop(CHG_LED, seq_charging);

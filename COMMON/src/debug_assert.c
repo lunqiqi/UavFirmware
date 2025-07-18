@@ -1,21 +1,11 @@
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼ş*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 
 #include "debug_assert.h"
 #include "led.h"
 #include "motors.h"
 
-/********************************************************************************	 
- * ±¾³ÌĞòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßĞí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * ¶ÏÑÔÇı¶¯´úÂë	
- * ÕıµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓĞ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 
@@ -50,7 +40,7 @@ void assertFail(char *exp, char *file, int line)
 	motorsSetRatio(MOTOR_M4, 0);
 
 	ledClearAll();
-	ledSet(ERR_LED1, 1);/*´íÎó¼ì²â*/
+	ledSet(ERR_LED1, 1);/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	ledSet(ERR_LED2, 1);
 
 	while (1);

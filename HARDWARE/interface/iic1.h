@@ -4,35 +4,26 @@
 #include "stdbool.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * IIC1Çý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2018/5/2
- * °æ±¾£ºV1.2
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
-/*IO·½ÏòÉèÖÃ*/
-#define SDA_IN()  {GPIOB->MODER&=~(3<<(9*2));GPIOB->MODER|=0<<9*2;}	//PB9ÊäÈëÄ£Ê½
-#define SDA_OUT() {GPIOB->MODER&=~(3<<(9*2));GPIOB->MODER|=1<<9*2;} //PB9Êä³öÄ£Ê½
-/*IO²Ù×÷º¯Êý*/	 
+/*IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+#define SDA_IN()  {GPIOB->MODER&=~(3<<(9*2));GPIOB->MODER|=0<<9*2;}	//PB9ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+#define SDA_OUT() {GPIOB->MODER&=~(3<<(9*2));GPIOB->MODER|=1<<9*2;} //PB9ï¿½ï¿½ï¿½Ä£Ê½
+/*IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/	 
 #define IIC1_SCL    PBout(8) 	//SCL
 #define IIC1_SDA    PBout(9) 	//SDA	 
-#define READ_SDA	PBin(9)  	//ÊäÈëSDA 
+#define READ_SDA	PBin(9)  	//ï¿½ï¿½ï¿½ï¿½SDA 
 
 
-//IIC1ËùÓÐ²Ù×÷º¯Êý
-void iicDevInit(void);					/*³õÊ¼»¯IIC1µÄIO¿Ú*/				 
-//u8 iicDevReadByte(u8 devaddr,u8 addr);	/*¶ÁÒ»×Ö½Ú*/
-u8 iicDevReadByte(u8 devaddr,u8 addr, u8* data);	/*¶ÁÒ»×Ö½Ú*/
-void iicDevWriteByte(u8 devaddr,u8 addr,u8 data);	/*Ð´Ò»×Ö½Ú*/
-void iicDevRead(u8 devaddr,u8 addr,u8 len,u8 *rbuf);/*Á¬Ðø¶ÁÈ¡¶à¸ö×Ö½Ú*/
-void iicDevWrite(u8 devaddr,u8 addr,u8 len,u8 *wbuf);/*Á¬ÐøÐ´Èë¶à¸ö×Ö½Ú*/
-bool iicDevWriteBit(u8 devaddr,u8 addr, u8 bitNum, u8 data);	/*iic Ð´ÈëÄ³¸öÎ»*/
+//IIC1ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void iicDevInit(void);					/*ï¿½ï¿½Ê¼ï¿½ï¿½IIC1ï¿½ï¿½IOï¿½ï¿½*/				 
+//u8 iicDevReadByte(u8 devaddr,u8 addr);	/*ï¿½ï¿½Ò»ï¿½Ö½ï¿½*/
+u8 iicDevReadByte(u8 devaddr,u8 addr, u8* data);	/*ï¿½ï¿½Ò»ï¿½Ö½ï¿½*/
+void iicDevWriteByte(u8 devaddr,u8 addr,u8 data);	/*Ð´Ò»ï¿½Ö½ï¿½*/
+void iicDevRead(u8 devaddr,u8 addr,u8 len,u8 *rbuf);/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+void iicDevWrite(u8 devaddr,u8 addr,u8 len,u8 *wbuf);/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+bool iicDevWriteBit(u8 devaddr,u8 addr, u8 bitNum, u8 data);	/*iic Ð´ï¿½ï¿½Ä³ï¿½ï¿½Î»*/
 
 #endif
 

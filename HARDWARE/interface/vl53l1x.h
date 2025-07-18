@@ -7,16 +7,7 @@
 #include "module_mgt.h"
 
 /********************************************************************************	 
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly	
- * vl53l1x底层驱动代码  移植于ST官方驱动库
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2018/10/25
- * 版本：V1.0
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 #define VL53L1X_MAX_RANGE			410		//410cm
@@ -26,8 +17,8 @@
 
 #define VL53L1X_ID			0xEACC
 
-extern VL53L1_Dev_t	dev;	/*vl53l1x 设备*/
-int vl53l1xSetParam(void);	/*设置vl53l1x 参数*/
+extern VL53L1_Dev_t	dev;	/*vl53l1x 锟借备*/
+int vl53l1xSetParam(void);	/*锟斤拷锟斤拷vl53l1x 锟斤拷锟斤拷*/
 
 #endif /* __VL53L1X_H */
 

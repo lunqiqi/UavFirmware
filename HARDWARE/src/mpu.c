@@ -7,17 +7,6 @@
 #include "mpu6500.h"
 #include "delay.h"
 
-/********************************************************************************	 
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly
- * MPU6500驱动代码	
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2017/5/2
- * 版本：V1.0
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
 ********************************************************************************/
 
 static uint8_t devAddr;
@@ -60,7 +49,7 @@ static const unsigned short MPU6500_StTb[256] =
 	28538,28823,29112,29403,29697,29994,30294,30597,
 	30903,31212,31524,31839,32157,32479,32804,33132
 };
-/*MPU6500初始化*/
+/*MPU6500锟斤拷始锟斤拷*/
 bool mpu6500Init(I2C_Dev *i2cPort)
 {
 	u8 temp;
@@ -69,11 +58,11 @@ bool mpu6500Init(I2C_Dev *i2cPort)
 	I2Cx = i2cPort;
 	devAddr = MPU6500_ADDR;
 	
-	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_PWR_MGMT_1,0x80);	/*复位MPU*/
-	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_PWR_MGMT_1,0x80);	/*复位MPU*/
+	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_PWR_MGMT_1,0x80);	/*锟斤拷位MPU*/
+	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_PWR_MGMT_1,0x80);	/*锟斤拷位MPU*/
 	
 	delay_xms(50);
-	i2cdevReadByte(I2Cx, devAddr, MPU6500_RA_WHO_AM_I, &temp);	/*读取ID*/
+	i2cdevReadByte(I2Cx, devAddr, MPU6500_RA_WHO_AM_I, &temp);	/*锟斤拷取ID*/
 	if (temp == 0x71 || temp == 0x73)	
 	{
 		printf("MPU9250 I2C connection [OK].\n");
@@ -85,12 +74,12 @@ bool mpu6500Init(I2C_Dev *i2cPort)
 	}				
 	
 	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_PWR_MGMT_1,0x03);		/*SLEEP 0; CYCLE 0; TEMP_DIS 0; CLKSEL 1 (PLL with Z Gyro reference)*/
-	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_INT_ENABLE,0x0);		/*关闭中断*/
-	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_INT_PIN_CFG,0x02);	/*使能I2C BYPASS*/
-	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_GYRO_CONFIG,MPU6500_GYRO_FS_2000<<3);	/*陀螺仪量程±2000*/
-	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_ACCEL_CONFIG,MPU6500_ACCEL_FS_8<<3);	/*加速计量程±8G*/
-	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_SMPLRT_DIV,1);				/*采样速率(1000/(1+1)=500Hz)*/
-	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_CONFIG,MPU6500_DLPF_BW_98);	/*数字低通滤波器带宽*/
+	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_INT_ENABLE,0x0);		/*锟截憋拷锟叫讹拷*/
+	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_INT_PIN_CFG,0x02);	/*使锟斤拷I2C BYPASS*/
+	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_GYRO_CONFIG,MPU6500_GYRO_FS_2000<<3);	/*锟斤拷锟斤拷锟斤拷锟斤拷锟教★拷2000*/
+	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_ACCEL_CONFIG,MPU6500_ACCEL_FS_8<<3);	/*锟斤拷锟劫硷拷锟斤拷锟教★拷8G*/
+	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_SMPLRT_DIV,1);				/*锟斤拷锟斤拷锟斤拷锟斤拷(1000/(1+1)=500Hz)*/
+	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_CONFIG,MPU6500_DLPF_BW_98);	/*锟斤拷锟街碉拷通锟剿诧拷锟斤拷锟斤拷锟斤拷*/
 	
 	return state;
 }
@@ -123,13 +112,13 @@ bool mpu6500SelfTest()
 	float aDiff[3], gDiff[3];
 	u8 FS = 0;
 	int i;
-	/*保存之前的配置*/
+	/*锟斤拷锟斤拷之前锟斤拷锟斤拷锟斤拷*/
 	i2cdevReadByte(I2Cx, devAddr, MPU6500_RA_SMPLRT_DIV, &saveReg[0]);
 	i2cdevReadByte(I2Cx, devAddr, MPU6500_RA_CONFIG, &saveReg[1]);
 	i2cdevReadByte(I2Cx, devAddr, MPU6500_RA_GYRO_CONFIG, &saveReg[2]);
 	i2cdevReadByte(I2Cx, devAddr, MPU6500_RA_ACCEL_CONFIG_2, &saveReg[3]);
 	i2cdevReadByte(I2Cx, devAddr, MPU6500_RA_ACCEL_CONFIG, &saveReg[4]);
-	/*写入新的的配置*/
+	/*写锟斤拷锟铰的碉拷锟斤拷锟斤拷*/
 	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_SMPLRT_DIV, 0x00); // Set gyro sample rate to 1 kHz
 	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_CONFIG, 0x02); // Set gyro sample rate to 1 kHz and DLPF to 92 Hz
 	i2cdevWriteByte(I2Cx, devAddr, MPU6500_RA_GYRO_CONFIG, 1<<FS); // Set full scale range for the gyro to 250 dps
@@ -234,7 +223,7 @@ bool mpu6500SelfTest()
 		return false;
 	}
 }
-/*获取6轴原始数据*/
+/*锟斤拷取6锟斤拷原始锟斤拷锟斤拷*/
 void mpu6500GetRawData(s16* ax, s16* ay, s16* az, s16* gx, s16* gy, s16* gz)
 {
 	i2cdevRead(I2Cx, devAddr, MPU6500_RA_ACCEL_XOUT_H, 14, buffer);

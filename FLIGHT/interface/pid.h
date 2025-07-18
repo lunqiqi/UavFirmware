@@ -3,23 +3,14 @@
 #include <stdbool.h>
 #include "config_param.h"
 
-/********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * PIDÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿Æ¼ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾ 2014-2024
  * All rights reserved
  *
- * ÐÞ¸ÄËµÃ÷:
- * °æ±¾V1.3 Ôö¼ÓPID½á¹¹ÌåµÄÊä³öÒ»Ïî(out)¡£
+ * ï¿½Þ¸ï¿½Ëµï¿½ï¿½:
+ * ï¿½æ±¾V1.3 ï¿½ï¿½ï¿½ï¿½PIDï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½(out)ï¿½ï¿½
 ********************************************************************************/
-#define DEFAULT_PID_INTEGRATION_LIMIT 		500.0 //Ä¬ÈÏpidµÄ»ý·ÖÏÞ·ù
-#define DEFAULT_PID_OUTPUT_LIMIT      		0.0	  //Ä¬ÈÏpidÊä³öÏÞ·ù£¬0Îª²»ÏÞ·ù
+#define DEFAULT_PID_INTEGRATION_LIMIT 		500.0 //Ä¬ï¿½ï¿½pidï¿½Ä»ï¿½ï¿½ï¿½ï¿½Þ·ï¿½
+#define DEFAULT_PID_OUTPUT_LIMIT      		0.0	  //Ä¬ï¿½ï¿½pidï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½0Îªï¿½ï¿½ï¿½Þ·ï¿½
 
 typedef struct
 {
@@ -40,19 +31,19 @@ typedef struct
 	float out;			//< out
 } PidObject;
 
-/*pid½á¹¹Ìå³õÊ¼»¯*/
+/*pidï¿½á¹¹ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½*/
 void pidInit(PidObject* pid, const float desired, const pidInit_t pidParam, const float dt);
-void pidSetIntegralLimit(PidObject* pid, const float limit);/*pid»ý·ÖÏÞ·ùÉèÖÃ*/
+void pidSetIntegralLimit(PidObject* pid, const float limit);/*pidï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½*/
 void pidSetOutputLimit(PidObject* pid, const float limit);
-void pidSetDesired(PidObject* pid, const float desired);	/*pidÉèÖÃÆÚÍûÖµ*/
-float pidUpdate(PidObject* pid, const float error);			/*pid¸üÐÂ*/
-float pidGetDesired(PidObject* pid);	/*pid»ñÈ¡ÆÚÍûÖµ*/
+void pidSetDesired(PidObject* pid, const float desired);	/*pidï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ*/
+float pidUpdate(PidObject* pid, const float error);			/*pidï¿½ï¿½ï¿½ï¿½*/
+float pidGetDesired(PidObject* pid);	/*pidï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Öµ*/
 bool pidIsActive(PidObject* pid);		/*pid×´Ì¬*/
-void pidReset(PidObject* pid);			/*pid½á¹¹Ìå¸´Î»*/
-void pidSetError(PidObject* pid, const float error);/*pidÆ«²îÉèÖÃ*/
-void pidSetKp(PidObject* pid, const float kp);		/*pid KpÉèÖÃ*/
-void pidSetKi(PidObject* pid, const float ki);		/*pid KiÉèÖÃ*/
-void pidSetKd(PidObject* pid, const float kd);		/*pid KdÉèÖÃ*/
-void pidSetDt(PidObject* pid, const float dt);		/*pid dtÉèÖÃ*/
+void pidReset(PidObject* pid);			/*pidï¿½á¹¹ï¿½å¸´Î»*/
+void pidSetError(PidObject* pid, const float error);/*pidÆ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+void pidSetKp(PidObject* pid, const float kp);		/*pid Kpï¿½ï¿½ï¿½ï¿½*/
+void pidSetKi(PidObject* pid, const float ki);		/*pid Kiï¿½ï¿½ï¿½ï¿½*/
+void pidSetKd(PidObject* pid, const float kd);		/*pid Kdï¿½ï¿½ï¿½ï¿½*/
+void pidSetDt(PidObject* pid, const float dt);		/*pid dtï¿½ï¿½ï¿½ï¿½*/
 
 #endif /* __PID_H */

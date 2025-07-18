@@ -5,16 +5,7 @@
 #include "sensors_types.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * ½á¹¹ÌåÀàÐÍ¶¨Òå	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 #if defined(__CC_ARM) 
@@ -23,7 +14,7 @@
 
 typedef struct  
 {
-	u32 timestamp;	/*Ê±¼ä´Á*/
+	u32 timestamp;	/*Ê±ï¿½ï¿½ï¿½*/
 
 	float roll;
 	float pitch;
@@ -32,7 +23,7 @@ typedef struct
 
 struct  vec3_s 
 {
-	u32 timestamp;	/*Ê±¼ä´Á*/
+	u32 timestamp;	/*Ê±ï¿½ï¿½ï¿½*/
 
 	float x;
 	float y;
@@ -113,9 +104,9 @@ typedef struct distanceMeasurement_s
 
 typedef struct zRange_s 
 {
-	uint32_t timestamp;	//Ê±¼ä´Á
-	float distance;		//²âÁ¿¾àÀë
-	float quality;		//¿ÉÐÅ¶È
+	uint32_t timestamp;	//Ê±ï¿½ï¿½ï¿½
+	float distance;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	float quality;		//ï¿½ï¿½ï¿½Å¶ï¿½
 } zRange_t;
 
 /** Flow measurement**/
@@ -187,14 +178,14 @@ typedef struct
 	s16 pitch;
 	s16 yaw;
 	float thrust;
-	enum dir_e flipDir;		/*·­¹ö·½Ïò*/
+	enum dir_e flipDir;		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 } control_t;
 
 typedef enum
 {
-	modeDisable = 0,/*¹Ø±ÕÄ£Ê½*/
-	modeAbs,		/*¾ø¶ÔÖµÄ£Ê½*/
-	modeVelocity	/*ËÙÂÊÄ£Ê½*/
+	modeDisable = 0,/*ï¿½Ø±ï¿½Ä£Ê½*/
+	modeAbs,		/*ï¿½ï¿½ï¿½ï¿½ÖµÄ£Ê½*/
+	modeVelocity	/*ï¿½ï¿½ï¿½ï¿½Ä£Ê½*/
 } mode_e;
 
 typedef struct
@@ -229,7 +220,7 @@ typedef struct
 #define RATE_1000_HZ 	1000
 
 #define MAIN_LOOP_RATE 	RATE_1000_HZ
-#define MAIN_LOOP_DT	(u32)(1000/MAIN_LOOP_RATE)	/*µ¥Î»ms*/
+#define MAIN_LOOP_DT	(u32)(1000/MAIN_LOOP_RATE)	/*ï¿½ï¿½Î»ms*/
 
 #define RATE_DO_EXECUTE(RATE_HZ, TICK) ((TICK % (MAIN_LOOP_RATE / RATE_HZ)) == 0)
 

@@ -3,37 +3,24 @@
 #include <stdio.h> 
 #include "usart.h" 
 //////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-//ALIENTEK STM32¿ª·¢°å
-//USBD-USR ´úÂë	   
-//ÕýµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//´´½¨ÈÕÆÚ:2016/1/21
-//°æ±¾£ºV1.3
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2009-2019
-//All rights reserved									  
-//*******************************************************************************
-//ÐÞ¸ÄÐÅÏ¢
-//ÎÞ
-////////////////////////////////////////////////////////////////////////////////// 	
 
-//±íÊ¾USBÁ¬½Ó×´Ì¬
-//0,Ã»ÓÐÁ¬½Ó;
-//1,ÒÑ¾­Á¬½Ó;
-vu8 bDeviceState=0;		//Ä¬ÈÏÃ»ÓÐÁ¬½Ó  
+
+//ï¿½ï¿½Ê¾USBï¿½ï¿½ï¿½ï¿½×´Ì¬
+//0,Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
+//1,ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½;
+vu8 bDeviceState=0;		//Ä¬ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 
 
 extern USB_OTG_CORE_HANDLE  USB_OTG_dev;
 
-//USB OTG ÖÐ¶Ï·þÎñº¯Êý
-//´¦ÀíËùÓÐUSBÖÐ¶Ï
+//USB OTG ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½USBï¿½Ð¶ï¿½
 void OTG_FS_IRQHandler(void)
 {
   	USBD_OTG_ISR_Handler(&USB_OTG_dev);
 }  
-//Ö¸ÏòDEVICE_PROP½á¹¹Ìå
-//USB Device ÓÃ»§»Øµ÷º¯Êý. 
+//Ö¸ï¿½ï¿½DEVICE_PROPï¿½á¹¹ï¿½ï¿½
+//USB Device ï¿½Ã»ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½. 
 USBD_Usr_cb_TypeDef USR_cb =
 {
   USBD_USR_Init,
@@ -44,13 +31,13 @@ USBD_Usr_cb_TypeDef USR_cb =
   USBD_USR_DeviceConnected,
   USBD_USR_DeviceDisconnected,    
 };
-//USB Device ÓÃ»§×Ô¶¨Òå³õÊ¼»¯º¯Êý
+//USB Device ï¿½Ã»ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void USBD_USR_Init(void)
 {
 	////printf("USBD_USR_Init\r\n");
 } 
-//USB Device ¸´Î»
-//speed:USBËÙ¶È,0,¸ßËÙ;1,È«ËÙ;ÆäËû,´íÎó.
+//USB Device ï¿½ï¿½Î»
+//speed:USBï¿½Ù¶ï¿½,0,ï¿½ï¿½ï¿½ï¿½;1,È«ï¿½ï¿½;ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½.
 void USBD_USR_DeviceReset (uint8_t speed)
 {
 	switch (speed)
@@ -66,30 +53,30 @@ void USBD_USR_DeviceReset (uint8_t speed)
 			break;
 	}
 }
-//USB Device ÅäÖÃ³É¹¦
+//USB Device ï¿½ï¿½ï¿½Ã³É¹ï¿½
 void USBD_USR_DeviceConfigured (void)
 {
     bDeviceState=1;
 	//printf("MSC Interface started.\r\n"); 
 } 
-//USB Device¹ÒÆð
+//USB Deviceï¿½ï¿½ï¿½ï¿½
 void USBD_USR_DeviceSuspended(void)
 {
     bDeviceState=0;
 	//printf("Device In suspend mode.\r\n");
 } 
-//USB Device»Ö¸´
+//USB Deviceï¿½Ö¸ï¿½
 void USBD_USR_DeviceResumed(void)
 { 
 	//printf("Device Resumed\r\n");
 }
-//USB DeviceÁ¬½Ó³É¹¦
+//USB Deviceï¿½ï¿½ï¿½Ó³É¹ï¿½
 void USBD_USR_DeviceConnected (void)
 {
 	bDeviceState=1;
 	//printf("USB Device Connected.\r\n");
 }
-//USB DeviceÎ´Á¬½Ó
+//USB DeviceÎ´ï¿½ï¿½ï¿½ï¿½
 void USBD_USR_DeviceDisconnected (void)
 {
 	bDeviceState=0;

@@ -3,20 +3,7 @@
 #include "vl53l0x.h"
 
 /********************************************************************************	 
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly
- * vl53l0x底层驱动代码, 移植自crazyflie	
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2018/5/2
- * 版本：V1.3
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
- *
- * 修改说明:
- * 版本V1.3 修改为底层驱动，方便应用层vl53lxx.c调用。
-********************************************************************************/
+
 
 
 static uint16_t io_timeout = 0;
@@ -102,11 +89,11 @@ bool vl53l0xTest(void)
 	return testStatus;
 }
 
-void vl53l0xSetParam(void)	/*设置vl53l0x 参数*/
+void vl53l0xSetParam(void)	/*锟斤拷锟斤拷vl53l0x 锟斤拷锟斤拷*/
 {
 	vl53l0xTest();		
-	vl53l0xSetVcselPulsePeriod(VcselPeriodPreRange, 18);	/*长距离模式  33ms 周期*/
-	vl53l0xSetVcselPulsePeriod(VcselPeriodFinalRange, 14);	/*长距离模式  33ms 周期*/
+	vl53l0xSetVcselPulsePeriod(VcselPeriodPreRange, 18);	/*锟斤拷锟斤拷锟斤拷模式  33ms 锟斤拷锟斤拷*/
+	vl53l0xSetVcselPulsePeriod(VcselPeriodFinalRange, 14);	/*锟斤拷锟斤拷锟斤拷模式  33ms 锟斤拷锟斤拷*/
 	vl53l0xStartContinuous(0);
 }
 

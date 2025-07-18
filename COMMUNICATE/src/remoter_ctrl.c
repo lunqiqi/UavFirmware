@@ -13,40 +13,28 @@
 #include "ledring12.h"
 #include "vl53lxx.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼þ*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * Ò£¿ØÆ÷¿ØÖÆÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
- *
- * ÐÞ¸ÄËµÃ÷:
- * °æ±¾V1.3 Ôö¼ÓÉÏµçÐ£×¼Í¨¹ýºóÉÏ´«Î¢µ÷ÐÅÏ¢¡£
+
 ********************************************************************************/
 
-static ctrlVal_t remoterCtrl;/*·¢ËÍµ½commander×ËÌ¬¿ØÖÆÊý¾Ý*/
+static ctrlVal_t remoterCtrl;/*ï¿½ï¿½ï¿½Íµï¿½commanderï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 static MiniFlyMsg_t msg;
-static u8 reSendTimes = 3;	/*Î¢µ÷ÖØ·¢´ÎÊý*/
+static u8 reSendTimes = 3;	/*Î¢ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-/*·µ»ØËÄÖáÐÅÏ¢*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢*/
 void sendMsgACK(void)
 {
 	msg.version = configParam.version;
 	msg.mpu_selfTest = getIsMPU9250Present();
 	msg.baro_slfTest = getIsBaroPresent();
 	msg.isCanFly = getIsCalibrated();
-	if(msg.isCanFly == true)	/*Ð£×¼Í¨¹ýÖ®ºó·¢ËÍÎ¢µ÷Öµ*/
+	if(msg.isCanFly == true)	/*Ð£×¼Í¨ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Î¢ï¿½ï¿½Öµ*/
 	{
-		if(reSendTimes > 0) /*Î¢µ÷ÖØ·¢´ÎÊý*/
+		if(reSendTimes > 0) /*Î¢ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½*/
 		{
 			reSendTimes--;
 			msg.trimPitch = configParam.trimP;
@@ -64,7 +52,7 @@ void sendMsgACK(void)
 	radiolinkSendPacketBlocking(&p);	
 }
 
-/*Ò£¿ØÊý¾Ý½ÓÊÕ´¦Àí*/
+/*Ò£ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½Õ´ï¿½ï¿½ï¿½*/
 void remoterCtrlProcess(atkp_t* pk)
 {	
 	if(pk->data[0] == REMOTER_CMD)

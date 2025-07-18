@@ -4,17 +4,7 @@
 #include "config.h"
 #include "stabilizer_types.h"
 
-/********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * »ñÈ¡Ò£¿ØÊý¾ÝÇý¶¯´úÂë
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 #define COMMANDER_WDT_TIMEOUT_STABILIZE  500
@@ -22,15 +12,15 @@
 
 typedef struct
 {
-	u8 ctrlMode		: 2;	/*bit0  1=¶¨¸ßÄ£Ê½ 0=ÊÖ¶¯Ä£Ê½   bit1  1=¶¨µãÄ£Ê½*/
-	u8 keyFlight 	: 1;	/*bit2 Ò»¼üÆð·É*/
-	u8 keyLand 		: 1;	/*bit3 Ò»¼ü½µÂä*/
-	u8 emerStop 	: 1;	/*bit4 ½ô¼±Í£»ú*/
-	u8 flightMode 	: 1;	/*bit5 ·ÉÐÐÄ£Ê½ 1=ÎÞÍ· 0=ÓÐÍ·*/
-	u8 reserved		: 2;	/*bit6~7 ±£Áô*/
+	u8 ctrlMode		: 2;	/*bit0  1=ï¿½ï¿½ï¿½ï¿½Ä£Ê½ 0=ï¿½Ö¶ï¿½Ä£Ê½   bit1  1=ï¿½ï¿½ï¿½ï¿½Ä£Ê½*/
+	u8 keyFlight 	: 1;	/*bit2 Ò»ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	u8 keyLand 		: 1;	/*bit3 Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	u8 emerStop 	: 1;	/*bit4 ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½*/
+	u8 flightMode 	: 1;	/*bit5 ï¿½ï¿½ï¿½ï¿½Ä£Ê½ 1=ï¿½ï¿½Í· 0=ï¿½ï¿½Í·*/
+	u8 reserved		: 2;	/*bit6~7 ï¿½ï¿½ï¿½ï¿½*/
 }commanderBits_t;
 
-/*¿ØÖÆÊý¾Ý½á¹¹Ìå*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½á¹¹ï¿½ï¿½*/
 typedef __packed struct
 {
 	float roll;       // deg
@@ -41,12 +31,12 @@ typedef __packed struct
 	u16 thrust;
 } ctrlVal_t;
 
-/*Êý¾Ý»º´æ½á¹¹Ìå*/
+/*ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½*/
 typedef struct
 {
 	ctrlVal_t  tarVal[2];
 	bool activeSide;
-	u32 timestamp; 		/* FreeRTOS Ê±ÖÓ½ÚÅÄ*/
+	u32 timestamp; 		/* FreeRTOS Ê±ï¿½Ó½ï¿½ï¿½ï¿½*/
 } ctrlValCache_t;
 
 typedef enum
@@ -58,7 +48,7 @@ typedef enum
 typedef enum
 {
 	XMODE     = 0, /*XÄ£Ê½*/
-	CAREFREE  = 1, /*ÎÞÍ·Ä£Ê½*/
+	CAREFREE  = 1, /*ï¿½ï¿½Í·Ä£Ê½*/
 } YawModeType;
 
 typedef enum

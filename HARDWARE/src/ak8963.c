@@ -4,16 +4,7 @@
 #include "ak8963.h"
 
 /********************************************************************************	 
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly
- * AK8963驱动代码	
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2017/5/12
- * 版本：V1.3
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 static uint8_t devAddr;
@@ -45,7 +36,7 @@ bool ak8963TestConnection()
 	return false;
 }
 
-/*AK8963自检*/
+/*AK8963锟皆硷拷*/
 bool ak8963SelfTest(void)
 {
 	bool testStatus = true;
@@ -104,21 +95,21 @@ u8 ak8963GetDeviceID()
 	return buffer[0];
 }
 
-// INFO 寄存器
+// INFO 锟侥达拷锟斤拷
 u8 ak8963GetInfo()
 {
 	i2cdevReadByte(I2Cx, devAddr, AK8963_RA_INFO, buffer);
 	return buffer[0];
 }
 
-// ST1 寄存器
+// ST1 锟侥达拷锟斤拷
 u8 ak8963GetDataReady()
 {
 	i2cdevReadBit(I2Cx, devAddr, AK8963_RA_ST1, AK8963_ST1_DRDY_BIT, buffer);
 	return buffer[0];
 }
 
-// H* 寄存器
+// H* 锟侥达拷锟斤拷
 void ak8963GetHeading(s16 *x, s16 *y, s16 *z)
 {
 	i2cdevRead(I2Cx, devAddr, AK8963_RA_HXL, 6, buffer);
@@ -145,7 +136,7 @@ s16 ak8963GetHeadingZ()
 	return (((s16) buffer[1]) << 8) | buffer[0];
 }
 
-// ST2 寄存器
+// ST2 锟侥达拷锟斤拷
 bool ak8963GetOverflowStatus()
 {
 	i2cdevReadBit(I2Cx, devAddr, AK8963_RA_ST2, AK8963_ST2_HOFL_BIT, buffer);
@@ -157,7 +148,7 @@ bool ak8963GetDataError()
 	return buffer[0];
 }
 
-// CNTL 寄存器
+// CNTL 锟侥达拷锟斤拷
 u8 ak8963GetMode()
 {
 	i2cdevReadByte(I2Cx, devAddr, AK8963_RA_CNTL, buffer);
@@ -173,7 +164,7 @@ void ak8963Reset()
 					AK8963_CNTL_MODE_LENGTH, AK8963_MODE_POWERDOWN);
 }
 
-// ASTC 寄存器
+// ASTC 锟侥达拷锟斤拷
 void ak8963SetSelfTest(bool enabled)
 {
 	i2cdevWriteBit(I2Cx, devAddr, AK8963_RA_ASTC, AK8963_ASTC_SELF_BIT, enabled);
@@ -185,7 +176,7 @@ void ak8963DisableI2C()
 	i2cdevWriteBit(I2Cx, devAddr, AK8963_RA_I2CDIS, AK8963_I2CDIS_BIT, true);
 }
 
-// ASA* 寄存器
+// ASA* 锟侥达拷锟斤拷
 void ak8963GetAdjustment(s8 *x, s8 *y, s8 *z)
 {
 	i2cdevRead(I2Cx, devAddr, AK8963_RA_ASAX, 3, buffer);

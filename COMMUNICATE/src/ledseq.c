@@ -2,25 +2,16 @@
 #include "led.h"
 #include "ledseq.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼þ*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "timers.h"
 #include "semphr.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * LEDÁ÷Ë®µÆÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
-/* LEDÐòÁÐÓÅÏÈ¼¶ */
+/* LEDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ */
 static ledseq_t const * sequences[] = 
 {
 	seq_lowbat,
@@ -31,36 +22,36 @@ static ledseq_t const * sequences[] =
 	seq_linkup,
 };
 
-/*Led ÐòÁÐ*/
-ledseq_t const seq_lowbat[] = 	/*µç³ØµÍµçÑ¹ÐòÁÐ*/
+/*Led ï¿½ï¿½ï¿½ï¿½*/
+ledseq_t const seq_lowbat[] = 	/*ï¿½ï¿½ØµÍµï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½*/
 {
 	{ true, LEDSEQ_WAITMS(1000)},
 	{    0, LEDSEQ_LOOP},
 };
-const ledseq_t seq_calibrated[] = /*´«¸ÐÆ÷Ð£×¼Íê³ÉÐòÁÐ*/
+const ledseq_t seq_calibrated[] = /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	{ true, LEDSEQ_WAITMS(50)},
 	{false, LEDSEQ_WAITMS(450)},
 	{    0, LEDSEQ_LOOP},
 };
-const ledseq_t seq_alive[] = 	/*¿ª»úÐòÁÐ*/
+const ledseq_t seq_alive[] = 	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	{ true, LEDSEQ_WAITMS(50)},
 	{false, LEDSEQ_WAITMS(1950)},
 	{    0, LEDSEQ_LOOP},
 };
-const ledseq_t seq_linkup[] = 	/*Í¨ÐÅÁ¬½ÓÐòÁÐ*/
+const ledseq_t seq_linkup[] = 	/*Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	{ true, LEDSEQ_WAITMS(1)},
 	{false, LEDSEQ_WAITMS(0)},
 	{    0, LEDSEQ_STOP},
 };
-const ledseq_t seq_charged[] = 	/*µç³Ø³äµçÍê³ÉÐòÁÐ*/
+const ledseq_t seq_charged[] = 	/*ï¿½ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	{ true, LEDSEQ_WAITMS(1000)},
 	{    0, LEDSEQ_LOOP},
 };
-ledseq_t const seq_charging[] = /*µç³Ø³äµç½øÐÐÖÐÐòÁÐ*/
+ledseq_t const seq_charging[] = /*ï¿½ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	{ true, LEDSEQ_WAITMS(200)},
 	{false, LEDSEQ_WAITMS(800)},
@@ -69,17 +60,17 @@ ledseq_t const seq_charging[] = /*µç³Ø³äµç½øÐÐÖÐÐòÁÐ*/
 
 #define SEQ_NUM (sizeof(sequences)/sizeof(sequences[0]))
 	
-static void updateActive(led_e led);		/*¸üÐÂledµÄ×î¸ßÓÅÏÈ¼¶ÐòÁÐ*/
-static int getPrio(const ledseq_t *seq);	/*»ñÈ¡ledÓÅÏÈ¼¶*/
+static void updateActive(led_e led);		/*ï¿½ï¿½ï¿½ï¿½ledï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½*/
+static int getPrio(const ledseq_t *seq);	/*ï¿½ï¿½È¡ledï¿½ï¿½ï¿½È¼ï¿½*/
 static void runLedseq(xTimerHandle xTimer);
 
 static bool isInit = false;
 static bool ledseqEnabled = true;
-static int activeSeq[LED_NUM];		/*Ã¿¸öLED¶ÔÓ¦µÄ»î¶¯ÓÅÏÈ¼¶ÐòÁÐ*/
-static int state[LED_NUM][SEQ_NUM];	/*Ã¿¸öLED¶ÔÓ¦µÄÐòÁÐµÄµ±Ç°Î»ÖÃ*/
+static int activeSeq[LED_NUM];		/*Ã¿ï¿½ï¿½LEDï¿½ï¿½Ó¦ï¿½Ä»î¶¯ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½*/
+static int state[LED_NUM][SEQ_NUM];	/*Ã¿ï¿½ï¿½LEDï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄµï¿½Ç°Î»ï¿½ï¿½*/
 
-static xTimerHandle timer[LED_NUM];	/*¶¨Ê±Æ÷¾ä±ú*/
-static xSemaphoreHandle ledseqSem;	/*ÐÅºÅÁ¿*/
+static xTimerHandle timer[LED_NUM];	/*ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½*/
+static xSemaphoreHandle ledseqSem;	/*ï¿½Åºï¿½ï¿½ï¿½*/
 
 
 void ledseqInit()
@@ -89,7 +80,7 @@ void ledseqInit()
 
 	ledInit();
 	
-	/*³õÊ¼»¯¸÷¸öÐòÁÐ×´Ì¬*/
+	/*ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬*/
 	for(i=0; i<LED_NUM; i++) 
 	{
 		activeSeq[i] = LEDSEQ_STOP;
@@ -97,11 +88,11 @@ void ledseqInit()
 			state[i][j] = LEDSEQ_STOP;
 	}
 	
-	/*´´½¨Èí¼þ¶¨Ê±Æ÷*/
+	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½*/
 	for(i=0; i<LED_NUM; i++)
 		timer[i] = xTimerCreate("ledseqTimer", 1000, pdFALSE, (void*)i, runLedseq);
 
-	vSemaphoreCreateBinary(ledseqSem);	/*´´½¨Ò»¸ö2ÖµÐÅºÅÁ¿*/
+	vSemaphoreCreateBinary(ledseqSem);	/*ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½2Öµï¿½Åºï¿½ï¿½ï¿½*/
 
 	isInit = true;
 }
@@ -126,10 +117,10 @@ void ledseqSetTimes(ledseq_t *sequence, int onTime, int offTime)
 	sequence[1].action = offTime;
 }
 
-/*ÔËÐÐledµÄsequenceÐòÁÐ*/
+/*ï¿½ï¿½ï¿½ï¿½ledï¿½ï¿½sequenceï¿½ï¿½ï¿½ï¿½*/
 void ledseqRun(led_e led, const ledseq_t *sequence)
 {
-	int prio = getPrio(sequence);	/*»ñÈ¡ledÓÅÏÈ¼¶ÐòÁÐ*/
+	int prio = getPrio(sequence);	/*ï¿½ï¿½È¡ledï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
 	if(prio<0) return;
 
@@ -138,11 +129,11 @@ void ledseqRun(led_e led, const ledseq_t *sequence)
 	updateActive(led);
 	xSemaphoreGive(ledseqSem);
 
-	if(activeSeq[led] == prio)	/*µ±Ç°ÐòÁÐÓÅÏÈ¼¶µÈÓÚ»î¶¯ÐòÁÐÓÅÏÈ¼¶*/
+	if(activeSeq[led] == prio)	/*ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½Ú»î¶¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½*/
 		runLedseq(timer[led]);
 }
 
-/*Í£Ö¹ledµÄsequenceÐòÁÐ*/
+/*Í£Ö¹ledï¿½ï¿½sequenceï¿½ï¿½ï¿½ï¿½*/
 void ledseqStop(led_e led, const ledseq_t *sequence)
 {
 	int prio = getPrio(sequence);
@@ -157,7 +148,7 @@ void ledseqStop(led_e led, const ledseq_t *sequence)
 	runLedseq(timer[led]);
 }
 
-/*FreeRTOS ¶¨Ê±Æ÷»Øµ÷º¯Êý*/
+/*FreeRTOS ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½*/
 static void runLedseq( xTimerHandle xTimer )
 {
 	bool leave = false;
@@ -187,8 +178,8 @@ static void runLedseq( xTimerHandle xTimer )
 				state[led][prio] = LEDSEQ_STOP;
 				updateActive(led);
 				break;
-			default:  /*LED¶¨Ê±*/
-				ledSet(led, step->value);	/*¶¨Ê±step->value*/
+			default:  /*LEDï¿½ï¿½Ê±*/
+				ledSet(led, step->value);	/*ï¿½ï¿½Ê±step->value*/
 				if (step->action == 0)
 					break;
 				xTimerChangePeriod(xTimer, step->action, 0);
@@ -200,7 +191,7 @@ static void runLedseq( xTimerHandle xTimer )
 	}
 }
 
-/*»ñÈ¡ledÐòÁÐÓÅÏÈ¼¶*/
+/*ï¿½ï¿½È¡ledï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½*/
 static int getPrio(const ledseq_t *seq)
 {
 	int prio;
@@ -208,10 +199,10 @@ static int getPrio(const ledseq_t *seq)
 	for(prio=0; prio<SEQ_NUM; prio++)
 		if(sequences[prio]==seq) return prio;
 
-	return -1; /*ÎÞÐ§ÐòÁÐ*/
+	return -1; /*ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½*/
 }
 
-/*¸üÐÂledµÄ×î¸ßÓÅÏÈ¼¶ÐòÁÐ*/
+/*ï¿½ï¿½ï¿½ï¿½ledï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½*/
 static void updateActive(led_e led)
 {
 	int prio;

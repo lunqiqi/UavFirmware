@@ -1,41 +1,28 @@
-/*1¡¢ÏÞ·ùÂË²¨·¨£¨ÓÖ³Æ³ÌÐòÅÐ¶ÏÂË²¨·¨£©*/
-/*
-A¡¢Ãû³Æ£ºÏÞ·ùÂË²¨·¨£¨ÓÖ³Æ³ÌÐòÅÐ¶ÏÂË²¨·¨£©
-B¡¢·½·¨£º
-    ¸ù¾Ý¾­ÑéÅÐ¶Ï£¬È·¶¨Á½´Î²ÉÑùÔÊÐíµÄ×î´óÆ«²îÖµ£¨ÉèÎªA£©£¬
-    Ã¿´Î¼ì²âµ½ÐÂÖµÊ±ÅÐ¶Ï£º
-    Èç¹û±¾´ÎÖµÓëÉÏ´ÎÖµÖ®²î<=A£¬Ôò±¾´ÎÖµÓÐÐ§£¬
-    Èç¹û±¾´ÎÖµÓëÉÏ´ÎÖµÖ®²î>A£¬Ôò±¾´ÎÖµÎÞÐ§£¬·ÅÆú±¾´ÎÖµ£¬ÓÃÉÏ´ÎÖµ´úÌæ±¾´ÎÖµ¡£
-C¡¢ÓÅµã£º
-    ÄÜÓÐÐ§¿Ë·þÒòÅ¼È»ÒòËØÒýÆðµÄÂö³å¸ÉÈÅ¡£
-D¡¢È±µã£º
-    ÎÞ·¨ÒÖÖÆÄÇÖÖÖÜÆÚÐÔµÄ¸ÉÈÅ¡£
-    Æ½»¬¶È²î¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+
 */
  
 int Filter_Value;
 int Value;
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   Value = 300;
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Value = Filter_Value;          // ×î½üÒ»´ÎÓÐÐ§²ÉÑùµÄÖµ£¬¸Ã±äÁ¿ÎªÈ«¾Ö±äÁ¿
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Value = Filter_Value;          // ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ÎªÈ«ï¿½Ö±ï¿½ï¿½ï¿½
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// ÏÞ·ùÂË²¨·¨£¨ÓÖ³Æ³ÌÐòÅÐ¶ÏÂË²¨·¨£©
+// ï¿½Þ·ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö³Æ³ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½
 #define FILTER_A 1
 int Filter() {
   int NewValue;
@@ -47,39 +34,39 @@ int Filter() {
 }
 
 
-/*2¡¢ÖÐÎ»ÖµÂË²¨·¨*/
+/*2ï¿½ï¿½ï¿½ï¿½Î»Öµï¿½Ë²ï¿½ï¿½ï¿½*/
 /*
-A¡¢Ãû³Æ£ºÖÐÎ»ÖµÂË²¨·¨
-B¡¢·½·¨£º
-    Á¬Ðø²ÉÑùN´Î£¨NÈ¡ÆæÊý£©£¬°ÑN´Î²ÉÑùÖµ°´´óÐ¡ÅÅÁÐ£¬
-    È¡ÖÐ¼äÖµÎª±¾´ÎÓÐÐ§Öµ¡£
-C¡¢ÓÅµã£º
-    ÄÜÓÐÐ§¿Ë·þÒòÅ¼È»ÒòËØÒýÆðµÄ²¨¶¯¸ÉÈÅ£»
-    ¶ÔÎÂ¶È¡¢ÒºÎ»µÄ±ä»¯»ºÂýµÄ±»²â²ÎÊýÓÐÁ¼ºÃµÄÂË²¨Ð§¹û¡£
-D¡¢È±µã£º
-    ¶ÔÁ÷Á¿¡¢ËÙ¶ÈµÈ¿ìËÙ±ä»¯µÄ²ÎÊý²»ÒË¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+Aï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½Î»Öµï¿½Ë²ï¿½ï¿½ï¿½
+Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½Î£ï¿½NÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½Î²ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ð£ï¿½
+    È¡ï¿½Ð¼ï¿½ÖµÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§Öµï¿½ï¿½
+Cï¿½ï¿½ï¿½Åµã£º
+    ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Ë·ï¿½ï¿½ï¿½Å¼È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½
+    ï¿½ï¿½ï¿½Â¶È¡ï¿½ÒºÎ»ï¿½Ä±ä»¯ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½Ë²ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
+Dï¿½ï¿½È±ï¿½ã£º
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ÈµÈ¿ï¿½ï¿½Ù±ä»¯ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½
+Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shenhaiyu 2013-11-01
 */
  
 int Filter_Value;
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// ÖÐÎ»ÖµÂË²¨·¨
+// ï¿½ï¿½Î»Öµï¿½Ë²ï¿½ï¿½ï¿½
 #define FILTER_N 101
 int Filter() {
   int filter_buf[FILTER_N];
@@ -89,7 +76,7 @@ int Filter() {
     filter_buf[i] = Get_AD();
     delay(1);
   }
-  // ²ÉÑùÖµ´ÓÐ¡µ½´óÅÅÁÐ£¨Ã°ÅÝ·¨£©
+  // ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½Ã°ï¿½Ý·ï¿½ï¿½ï¿½
   for(j = 0; j < FILTER_N - 1; j++) {
     for(i = 0; i < FILTER_N - 1 - j; i++) {
       if(filter_buf[i] > filter_buf[i + 1]) {
@@ -102,42 +89,42 @@ int Filter() {
   return filter_buf[(FILTER_N - 1) / 2];
 }
 
-/*3¡¢ËãÊõÆ½¾ùÂË²¨·¨*/
+/*3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½*/
 /*
-A¡¢Ãû³Æ£ºËãÊõÆ½¾ùÂË²¨·¨
-B¡¢·½·¨£º
-    Á¬ÐøÈ¡N¸ö²ÉÑùÖµ½øÐÐËãÊõÆ½¾ùÔËËã£º
-    NÖµ½Ï´óÊ±£ºÐÅºÅÆ½»¬¶È½Ï¸ß£¬µ«ÁéÃô¶È½ÏµÍ£»
-    NÖµ½ÏÐ¡Ê±£ºÐÅºÅÆ½»¬¶È½ÏµÍ£¬µ«ÁéÃô¶È½Ï¸ß£»
-    NÖµµÄÑ¡È¡£ºÒ»°ãÁ÷Á¿£¬N=12£»Ñ¹Á¦£ºN=4¡£
-C¡¢ÓÅµã£º
-    ÊÊÓÃÓÚ¶ÔÒ»°ã¾ßÓÐËæ»ú¸ÉÈÅµÄÐÅºÅ½øÐÐÂË²¨£»
-    ÕâÖÖÐÅºÅµÄÌØµãÊÇÓÐÒ»¸öÆ½¾ùÖµ£¬ÐÅºÅÔÚÄ³Ò»ÊýÖµ·¶Î§¸½½üÉÏÏÂ²¨¶¯¡£
-D¡¢È±µã£º
-    ¶ÔÓÚ²âÁ¿ËÙ¶È½ÏÂý»òÒªÇóÊý¾Ý¼ÆËãËÙ¶È½Ï¿ìµÄÊµÊ±¿ØÖÆ²»ÊÊÓÃ£»
-    ±È½ÏÀË·ÑRAM¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+Aï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
+Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½È¡Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ã£º
+    NÖµï¿½Ï´ï¿½Ê±ï¿½ï¿½ï¿½Åºï¿½Æ½ï¿½ï¿½ï¿½È½Ï¸ß£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½ÏµÍ£ï¿½
+    NÖµï¿½ï¿½Ð¡Ê±ï¿½ï¿½ï¿½Åºï¿½Æ½ï¿½ï¿½ï¿½È½ÏµÍ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½Ï¸ß£ï¿½
+    NÖµï¿½ï¿½Ñ¡È¡ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½N=12ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½N=4ï¿½ï¿½
+Cï¿½ï¿½ï¿½Åµã£º
+    ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ÅºÅ½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅµï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Æ½ï¿½ï¿½Öµï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½Ä³Ò»ï¿½ï¿½Öµï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½ï¿½ï¿½
+Dï¿½ï¿½È±ï¿½ã£º
+    ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Ù¶È½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½Ù¶È½Ï¿ï¿½ï¿½ÊµÊ±ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½Ã£ï¿½
+    ï¿½È½ï¿½ï¿½Ë·ï¿½RAMï¿½ï¿½
+Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shenhaiyu 2013-11-01
 */
  
 int Filter_Value;
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// ËãÊõÆ½¾ùÂË²¨·¨
+// ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
 #define FILTER_N 12
 int Filter() {
   int i;
@@ -149,44 +136,44 @@ int Filter() {
   return (int)(filter_sum / FILTER_N);
 }
 
-/*4¡¢µÝÍÆÆ½¾ùÂË²¨·¨£¨ÓÖ³Æ»¬¶¯Æ½¾ùÂË²¨·¨£©*/
+/*4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö³Æ»ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½*/
 /*
-A¡¢Ãû³Æ£ºµÝÍÆÆ½¾ùÂË²¨·¨£¨ÓÖ³Æ»¬¶¯Æ½¾ùÂË²¨·¨£©
-B¡¢·½·¨£º
-    °ÑÁ¬ÐøÈ¡µÃµÄN¸ö²ÉÑùÖµ¿´³ÉÒ»¸ö¶ÓÁÐ£¬¶ÓÁÐµÄ³¤¶È¹Ì¶¨ÎªN£¬
-    Ã¿´Î²ÉÑùµ½Ò»¸öÐÂÊý¾Ý·ÅÈë¶ÓÎ²£¬²¢ÈÓµôÔ­À´¶ÓÊ×µÄÒ»´ÎÊý¾Ý£¨ÏÈ½øÏÈ³öÔ­Ôò£©£¬
-    °Ñ¶ÓÁÐÖÐµÄN¸öÊý¾Ý½øÐÐËãÊõÆ½¾ùÔËËã£¬»ñµÃÐÂµÄÂË²¨½á¹û¡£
-    NÖµµÄÑ¡È¡£ºÁ÷Á¿£¬N=12£»Ñ¹Á¦£¬N=4£»ÒºÃæ£¬N=4-12£»ÎÂ¶È£¬N=1-4¡£
-C¡¢ÓÅµã£º
-    ¶ÔÖÜÆÚÐÔ¸ÉÈÅÓÐÁ¼ºÃµÄÒÖÖÆ×÷ÓÃ£¬Æ½»¬¶È¸ß£»
-    ÊÊÓÃÓÚ¸ßÆµÕñµ´µÄÏµÍ³¡£
-D¡¢È±µã£º
-    ÁéÃô¶ÈµÍ£¬¶ÔÅ¼È»³öÏÖµÄÂö³åÐÔ¸ÉÈÅµÄÒÖÖÆ×÷ÓÃ½Ï²î£»
-    ²»Ò×Ïû³ýÓÉÓÚÂö³å¸ÉÈÅËùÒýÆðµÄ²ÉÑùÖµÆ«²î£»
-    ²»ÊÊÓÃÓÚÂö³å¸ÉÈÅ±È½ÏÑÏÖØµÄ³¡ºÏ£»
-    ±È½ÏÀË·ÑRAM¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+Aï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö³Æ»ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½
+Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½Ãµï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ÐµÄ³ï¿½ï¿½È¹Ì¶ï¿½ÎªNï¿½ï¿½
+    Ã¿ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½È½ï¿½ï¿½È³ï¿½Ô­ï¿½ò£©£ï¿½
+    ï¿½Ñ¶ï¿½ï¿½ï¿½ï¿½Ðµï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    NÖµï¿½ï¿½Ñ¡È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½N=12ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½N=4ï¿½ï¿½Òºï¿½æ£¬N=4-12ï¿½ï¿½ï¿½Â¶È£ï¿½N=1-4ï¿½ï¿½
+Cï¿½ï¿½ï¿½Åµã£º
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½Æ½ï¿½ï¿½ï¿½È¸ß£ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½Æµï¿½ñµ´µï¿½ÏµÍ³ï¿½ï¿½
+Dï¿½ï¿½È±ï¿½ã£º
+    ï¿½ï¿½ï¿½ï¿½ï¿½ÈµÍ£ï¿½ï¿½ï¿½Å¼È»ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã½Ï²î£»
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ÖµÆ«ï¿½î£»
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±È½ï¿½ï¿½ï¿½ï¿½ØµÄ³ï¿½ï¿½Ï£ï¿½
+    ï¿½È½ï¿½ï¿½Ë·ï¿½RAMï¿½ï¿½
+Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shenhaiyu 2013-11-01
 */
  
 int Filter_Value;
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// µÝÍÆÆ½¾ùÂË²¨·¨£¨ÓÖ³Æ»¬¶¯Æ½¾ùÂË²¨·¨£©
+// ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö³Æ»ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½
 #define FILTER_N 12
 int filter_buf[FILTER_N + 1];
 int Filter() {
@@ -194,51 +181,51 @@ int Filter() {
   int filter_sum = 0;
   filter_buf[FILTER_N] = Get_AD();
   for(i = 0; i < FILTER_N; i++) {
-    filter_buf[i] = filter_buf[i + 1]; // ËùÓÐÊý¾Ý×óÒÆ£¬µÍÎ»ÈÔµô
+    filter_buf[i] = filter_buf[i + 1]; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½Î»ï¿½Ôµï¿½
     filter_sum += filter_buf[i];
   }
   return (int)(filter_sum / FILTER_N);
 }
 
-/*5.ÖÐÎ»ÖµÆ½¾ùÂË²¨·¨(ÓÖ³Æ·ÀÂö³å¸ÉÈÅÆ½¾ùÂË²¨·¨)*/
+/*5.ï¿½ï¿½Î»ÖµÆ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½(ï¿½Ö³Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½)*/
 /*
-A¡¢Ãû³Æ£ºÖÐÎ»ÖµÆ½¾ùÂË²¨·¨£¨ÓÖ³Æ·ÀÂö³å¸ÉÈÅÆ½¾ùÂË²¨·¨£©
-B¡¢·½·¨£º
-    ²ÉÒ»×é¶ÓÁÐÈ¥µô×î´óÖµºÍ×îÐ¡ÖµºóÈ¡Æ½¾ùÖµ£¬
-    Ïàµ±ÓÚ¡°ÖÐÎ»ÖµÂË²¨·¨¡±+¡°ËãÊõÆ½¾ùÂË²¨·¨¡±¡£
-    Á¬Ðø²ÉÑùN¸öÊý¾Ý£¬È¥µôÒ»¸ö×î´óÖµºÍÒ»¸ö×îÐ¡Öµ£¬
-    È»ºó¼ÆËãN-2¸öÊý¾ÝµÄËãÊõÆ½¾ùÖµ¡£
-    NÖµµÄÑ¡È¡£º3-14¡£
-C¡¢ÓÅµã£º
-    ÈÚºÏÁË¡°ÖÐÎ»ÖµÂË²¨·¨¡±+¡°ËãÊõÆ½¾ùÂË²¨·¨¡±Á½ÖÖÂË²¨·¨µÄÓÅµã¡£
-    ¶ÔÓÚÅ¼È»³öÏÖµÄÂö³åÐÔ¸ÉÈÅ£¬¿ÉÏû³ýÓÉÆäËùÒýÆðµÄ²ÉÑùÖµÆ«²î¡£
-    ¶ÔÖÜÆÚ¸ÉÈÅÓÐÁ¼ºÃµÄÒÖÖÆ×÷ÓÃ¡£
-    Æ½»¬¶È¸ß£¬ÊÊÓÚ¸ßÆµÕñµ´µÄÏµÍ³¡£
-D¡¢È±µã£º
-    ¼ÆËãËÙ¶È½ÏÂý£¬ºÍËãÊõÆ½¾ùÂË²¨·¨Ò»Ñù¡£
-    ±È½ÏÀË·ÑRAM¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+Aï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½Î»ÖµÆ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö³Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½
+Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ð¡Öµï¿½ï¿½È¡Æ½ï¿½ï¿½Öµï¿½ï¿½
+    ï¿½àµ±ï¿½Ú¡ï¿½ï¿½ï¿½Î»Öµï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½È¥ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ð¡Öµï¿½ï¿½
+    È»ï¿½ï¿½ï¿½ï¿½ï¿½N-2ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½Öµï¿½ï¿½
+    NÖµï¿½ï¿½Ñ¡È¡ï¿½ï¿½3-14ï¿½ï¿½
+Cï¿½ï¿½ï¿½Åµã£º
+    ï¿½Úºï¿½ï¿½Ë¡ï¿½ï¿½ï¿½Î»Öµï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµã¡£
+    ï¿½ï¿½ï¿½ï¿½Å¼È»ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ÖµÆ«ï¿½î¡£
+    ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½
+    Æ½ï¿½ï¿½ï¿½È¸ß£ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½Æµï¿½ñµ´µï¿½ÏµÍ³ï¿½ï¿½
+Dï¿½ï¿½È±ï¿½ã£º
+    ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+    ï¿½È½ï¿½ï¿½Ë·ï¿½RAMï¿½ï¿½
+Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shenhaiyu 2013-11-01
 */
  
 int Filter_Value;
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// ÖÐÎ»ÖµÆ½¾ùÂË²¨·¨£¨ÓÖ³Æ·ÀÂö³å¸ÉÈÅÆ½¾ùÂË²¨·¨£©£¨Ëã·¨1£©
+// ï¿½ï¿½Î»ÖµÆ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö³Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨1ï¿½ï¿½
 #define FILTER_N 100
 int Filter() {
   int i, j;
@@ -248,7 +235,7 @@ int Filter() {
     filter_buf[i] = Get_AD();
     delay(1);
   }
-  // ²ÉÑùÖµ´ÓÐ¡µ½´óÅÅÁÐ£¨Ã°ÅÝ·¨£©
+  // ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½Ã°ï¿½Ý·ï¿½ï¿½ï¿½
   for(j = 0; j < FILTER_N - 1; j++) {
     for(i = 0; i < FILTER_N - 1 - j; i++) {
       if(filter_buf[i] > filter_buf[i + 1]) {
@@ -258,13 +245,13 @@ int Filter() {
       }
     }
   }
-  // È¥³ý×î´ó×îÐ¡¼«ÖµºóÇóÆ½¾ù
+  // È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½
   for(i = 1; i < FILTER_N - 1; i++) filter_sum += filter_buf[i];
   return filter_sum / (FILTER_N - 2);
 }
  
  
-//  ÖÐÎ»ÖµÆ½¾ùÂË²¨·¨£¨ÓÖ³Æ·ÀÂö³å¸ÉÈÅÆ½¾ùÂË²¨·¨£©£¨Ëã·¨2£©
+//  ï¿½ï¿½Î»ÖµÆ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö³Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨2ï¿½ï¿½
 /*
 #define FILTER_N 100
 int Filter() {
@@ -288,24 +275,24 @@ int Filter() {
     filter_buf[i] = filter_buf[i - 1];
   }
   i = FILTER_N - 2;
-  filter_sum = filter_sum - filter_max - filter_min + i / 2; // +i/2 µÄÄ¿µÄÊÇÎªÁËËÄÉáÎåÈë
+  filter_sum = filter_sum - filter_max - filter_min + i / 2; // +i/2 ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   filter_sum = filter_sum / i;
   return filter_sum;
 }*/
 
-/*6.ÏÞ·ùÆ½¾ùÂË²¨·¨*/
+/*6.ï¿½Þ·ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½*/
 /*
-A¡¢Ãû³Æ£ºÏÞ·ùÆ½¾ùÂË²¨·¨
-B¡¢·½·¨£º
-    Ïàµ±ÓÚ¡°ÏÞ·ùÂË²¨·¨¡±+¡°µÝÍÆÆ½¾ùÂË²¨·¨¡±£»
-    Ã¿´Î²ÉÑùµ½µÄÐÂÊý¾ÝÏÈ½øÐÐÏÞ·ù´¦Àí£¬
-    ÔÙËÍÈë¶ÓÁÐ½øÐÐµÝÍÆÆ½¾ùÂË²¨´¦Àí¡£
-C¡¢ÓÅµã£º
-    ÈÚºÏÁËÁ½ÖÖÂË²¨·¨µÄÓÅµã£»
-    ¶ÔÓÚÅ¼È»³öÏÖµÄÂö³åÐÔ¸ÉÈÅ£¬¿ÉÏû³ýÓÉÓÚÂö³å¸ÉÈÅËùÒýÆðµÄ²ÉÑùÖµÆ«²î¡£
-D¡¢È±µã£º
-    ±È½ÏÀË·ÑRAM¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+Aï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½Þ·ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
+Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½àµ±ï¿½Ú¡ï¿½ï¿½Þ·ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    Ã¿ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Cï¿½ï¿½ï¿½Åµã£º
+    ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµã£»
+    ï¿½ï¿½ï¿½ï¿½Å¼È»ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ÖµÆ«ï¿½î¡£
+Dï¿½ï¿½È±ï¿½ã£º
+    ï¿½È½ï¿½ï¿½Ë·ï¿½RAMï¿½ï¿½
+Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shenhaiyu 2013-11-01
 */
  
 #define FILTER_N 12
@@ -313,23 +300,23 @@ int Filter_Value;
 int filter_buf[FILTER_N];
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   filter_buf[FILTER_N - 2] = 300;
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// ÏÞ·ùÆ½¾ùÂË²¨·¨
+// ï¿½Þ·ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
 #define FILTER_A 1
 int Filter() {
   int i;
@@ -344,42 +331,42 @@ int Filter() {
   return (int)filter_sum / (FILTER_N - 1);
 }
 
-/*7.Ò»½×ÖÍºóÂË²¨·¨*/
+/*7.Ò»ï¿½ï¿½ï¿½Íºï¿½ï¿½Ë²ï¿½ï¿½ï¿½*/
 /*
-A¡¢Ãû³Æ£ºÒ»½×ÖÍºóÂË²¨·¨
-B¡¢·½·¨£º
-    È¡a=0-1£¬±¾´ÎÂË²¨½á¹û=(1-a)*±¾´Î²ÉÑùÖµ+a*ÉÏ´ÎÂË²¨½á¹û¡£
-C¡¢ÓÅµã£º
-    ¶ÔÖÜÆÚÐÔ¸ÉÈÅ¾ßÓÐÁ¼ºÃµÄÒÖÖÆ×÷ÓÃ£»
-    ÊÊÓÃÓÚ²¨¶¯ÆµÂÊ½Ï¸ßµÄ³¡ºÏ¡£
-D¡¢È±µã£º
-    ÏàÎ»ÖÍºó£¬ÁéÃô¶ÈµÍ£»
-    ÖÍºó³Ì¶ÈÈ¡¾öÓÚaÖµ´óÐ¡£»
-    ²»ÄÜÏû³ýÂË²¨ÆµÂÊ¸ßÓÚ²ÉÑùÆµÂÊ1/2µÄ¸ÉÈÅÐÅºÅ¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+Aï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½Ò»ï¿½ï¿½ï¿½Íºï¿½ï¿½Ë²ï¿½ï¿½ï¿½
+Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    È¡a=0-1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½=(1-a)*ï¿½ï¿½ï¿½Î²ï¿½ï¿½ï¿½Öµ+a*ï¿½Ï´ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Cï¿½ï¿½ï¿½Åµã£º
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½Å¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½Æµï¿½Ê½Ï¸ßµÄ³ï¿½ï¿½Ï¡ï¿½
+Dï¿½ï¿½È±ï¿½ã£º
+    ï¿½ï¿½Î»ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÈµÍ£ï¿½
+    ï¿½Íºï¿½Ì¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½aÖµï¿½ï¿½Ð¡ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½Æµï¿½Ê¸ï¿½ï¿½Ú²ï¿½ï¿½ï¿½Æµï¿½ï¿½1/2ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ÅºÅ¡ï¿½
+Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shenhaiyu 2013-11-01
 */
  
 int Filter_Value;
 int Value;
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   Value = 300;
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// Ò»½×ÖÍºóÂË²¨·¨
+// Ò»ï¿½ï¿½ï¿½Íºï¿½ï¿½Ë²ï¿½ï¿½ï¿½
 #define FILTER_A 0.01
 int Filter() {
   int NewValue;
@@ -388,94 +375,94 @@ int Filter() {
   return Value;
 }
 
-/*8.¼ÓÈ¨µÝÍÆÆ½¾ùÂË²¨·¨*/
+/*8.ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½*/
 /*
-A¡¢Ãû³Æ£º¼ÓÈ¨µÝÍÆÆ½¾ùÂË²¨·¨
-B¡¢·½·¨£º
-    ÊÇ¶ÔµÝÍÆÆ½¾ùÂË²¨·¨µÄ¸Ä½ø£¬¼´²»Í¬Ê±¿ÌµÄÊý¾Ý¼ÓÒÔ²»Í¬µÄÈ¨£»
-    Í¨³£ÊÇ£¬Ô½½Ó½üÏÖÊ±¿ÌµÄÊý¾Ý£¬È¨È¡µÃÔ½´ó¡£
-    ¸øÓèÐÂ²ÉÑùÖµµÄÈ¨ÏµÊýÔ½´ó£¬ÔòÁéÃô¶ÈÔ½¸ß£¬µ«ÐÅºÅÆ½»¬¶ÈÔ½µÍ¡£
-C¡¢ÓÅµã£º
-    ÊÊÓÃÓÚÓÐ½Ï´ó´¿ÖÍºóÊ±¼ä³£ÊýµÄ¶ÔÏó£¬ºÍ²ÉÑùÖÜÆÚ½Ï¶ÌµÄÏµÍ³¡£
-D¡¢È±µã£º
-    ¶ÔÓÚ´¿ÖÍºóÊ±¼ä³£Êý½ÏÐ¡¡¢²ÉÑùÖÜÆÚ½Ï³¤¡¢±ä»¯»ºÂýµÄÐÅºÅ£»
-    ²»ÄÜÑ¸ËÙ·´Ó¦ÏµÍ³µ±Ç°ËùÊÜ¸ÉÈÅµÄÑÏÖØ³Ì¶È£¬ÂË²¨Ð§¹û²î¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+Aï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
+Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½Ç¶Ôµï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ä¸Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ê±ï¿½Ìµï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½Ô²ï¿½Í¬ï¿½ï¿½È¨ï¿½ï¿½
+    Í¨ï¿½ï¿½ï¿½Ç£ï¿½Ô½ï¿½Ó½ï¿½ï¿½ï¿½Ê±ï¿½Ìµï¿½ï¿½ï¿½ï¿½Ý£ï¿½È¨È¡ï¿½ï¿½Ô½ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½Öµï¿½ï¿½È¨Ïµï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ß£ï¿½ï¿½ï¿½ï¿½Åºï¿½Æ½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½Í¡ï¿½
+Cï¿½ï¿½ï¿½Åµã£º
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½Ï´ï¿½ï¿½Íºï¿½Ê±ï¿½ä³£ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ó£¬ºÍ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ï¶Ìµï¿½ÏµÍ³ï¿½ï¿½
+Dï¿½ï¿½È±ï¿½ã£º
+    ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Íºï¿½Ê±ï¿½ä³£ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú½Ï³ï¿½ï¿½ï¿½ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½
+    ï¿½ï¿½ï¿½ï¿½Ñ¸ï¿½Ù·ï¿½Ó¦ÏµÍ³ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½Ø³Ì¶È£ï¿½ï¿½Ë²ï¿½Ð§ï¿½ï¿½ï¿½î¡£
+Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shenhaiyu 2013-11-01
 */
  
 int Filter_Value;
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// ¼ÓÈ¨µÝÍÆÆ½¾ùÂË²¨·¨
+// ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
 #define FILTER_N 12
-int coe[FILTER_N] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};    // ¼ÓÈ¨ÏµÊý±í
-int sum_coe = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12; // ¼ÓÈ¨ÏµÊýºÍ
+int coe[FILTER_N] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};    // ï¿½ï¿½È¨Ïµï¿½ï¿½ï¿½ï¿½
+int sum_coe = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12; // ï¿½ï¿½È¨Ïµï¿½ï¿½ï¿½ï¿½
 int filter_buf[FILTER_N + 1];
 int Filter() {
   int i;
   int filter_sum = 0;
   filter_buf[FILTER_N] = Get_AD();
   for(i = 0; i < FILTER_N; i++) {
-    filter_buf[i] = filter_buf[i + 1]; // ËùÓÐÊý¾Ý×óÒÆ£¬µÍÎ»ÈÔµô
+    filter_buf[i] = filter_buf[i + 1]; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½Î»ï¿½Ôµï¿½
     filter_sum += filter_buf[i] * coe[i];
   }
   filter_sum /= sum_coe;
   return filter_sum;
 }
 
-/*9.Ïû¶¶ÂË²¨·¨*/
+/*9.ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½*/
 /*
-A¡¢Ãû³Æ£ºÏû¶¶ÂË²¨·¨
-B¡¢·½·¨£º
-    ÉèÖÃÒ»¸öÂË²¨¼ÆÊýÆ÷£¬½«Ã¿´Î²ÉÑùÖµÓëµ±Ç°ÓÐÐ§Öµ±È½Ï£º
-    Èç¹û²ÉÑùÖµ=µ±Ç°ÓÐÐ§Öµ£¬Ôò¼ÆÊýÆ÷ÇåÁã£»
-    Èç¹û²ÉÑùÖµ<>µ±Ç°ÓÐÐ§Öµ£¬Ôò¼ÆÊýÆ÷+1£¬²¢ÅÐ¶Ï¼ÆÊýÆ÷ÊÇ·ñ>=ÉÏÏÞN£¨Òç³ö£©£»
-    Èç¹û¼ÆÊýÆ÷Òç³ö£¬Ôò½«±¾´ÎÖµÌæ»»µ±Ç°ÓÐÐ§Öµ£¬²¢Çå¼ÆÊýÆ÷¡£
-C¡¢ÓÅµã£º
-    ¶ÔÓÚ±ä»¯»ºÂýµÄ±»²â²ÎÊýÓÐ½ÏºÃµÄÂË²¨Ð§¹û£»
-    ¿É±ÜÃâÔÚÁÙ½çÖµ¸½½ü¿ØÖÆÆ÷µÄ·´¸´¿ª/¹ØÌø¶¯»òÏÔÊ¾Æ÷ÉÏÊýÖµ¶¶¶¯¡£
-D¡¢È±µã£º
-    ¶ÔÓÚ¿ìËÙ±ä»¯µÄ²ÎÊý²»ÒË£»
-    Èç¹ûÔÚ¼ÆÊýÆ÷Òç³öµÄÄÇÒ»´Î²ÉÑùµ½µÄÖµÇ¡ºÃÊÇ¸ÉÈÅÖµ,Ôò»á½«¸ÉÈÅÖµµ±×÷ÓÐÐ§Öµµ¼ÈëÏµÍ³¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+Aï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
+Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½Î²ï¿½ï¿½ï¿½Öµï¿½ëµ±Ç°ï¿½ï¿½Ð§Öµï¿½È½Ï£ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ=ï¿½ï¿½Ç°ï¿½ï¿½Ð§Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£»
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ<>ï¿½ï¿½Ç°ï¿½ï¿½Ð§Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½>=ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò½«±ï¿½ï¿½ï¿½Öµï¿½æ»»ï¿½ï¿½Ç°ï¿½ï¿½Ð§Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Cï¿½ï¿½ï¿½Åµã£º
+    ï¿½ï¿½ï¿½Ú±ä»¯ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ÏºÃµï¿½ï¿½Ë²ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
+    ï¿½É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Dï¿½ï¿½È±ï¿½ã£º
+    ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Ù±ä»¯ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½
+    ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÇ¡ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½Öµ,ï¿½ï¿½á½«ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§Öµï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½
+Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shenhaiyu 2013-11-01
 */
  
 int Filter_Value;
 int Value;
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   Value = 300;
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// Ïû¶¶ÂË²¨·¨
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
 #define FILTER_N 12
 int i = 0;
 int Filter() {
@@ -493,41 +480,41 @@ int Filter() {
   return Value;
 }
 
- /*10.ÏÞ·ùÏû¶¶ÂË²¨·¨*/
+ /*10.ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½*/
 /*
-A¡¢Ãû³Æ£ºÏÞ·ùÏû¶¶ÂË²¨·¨
-B¡¢·½·¨£º
-    Ïàµ±ÓÚ¡°ÏÞ·ùÂË²¨·¨¡±+¡°Ïû¶¶ÂË²¨·¨¡±£»
-    ÏÈÏÞ·ù£¬ºóÏû¶¶¡£
-C¡¢ÓÅµã£º
-    ¼Ì³ÐÁË¡°ÏÞ·ù¡±ºÍ¡°Ïû¶¶¡±µÄÓÅµã£»
-    ¸Ä½øÁË¡°Ïû¶¶ÂË²¨·¨¡±ÖÐµÄÄ³Ð©È±ÏÝ£¬±ÜÃâ½«¸ÉÈÅÖµµ¼ÈëÏµÍ³¡£
-D¡¢È±µã£º
-    ¶ÔÓÚ¿ìËÙ±ä»¯µÄ²ÎÊý²»ÒË¡£
-E¡¢ÕûÀí£ºshenhaiyu 2013-11-01
+Aï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
+Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½àµ±ï¿½Ú¡ï¿½ï¿½Þ·ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Cï¿½ï¿½ï¿½Åµã£º
+    ï¿½Ì³ï¿½ï¿½Ë¡ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Í¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµã£»
+    ï¿½Ä½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ä³Ð©È±ï¿½Ý£ï¿½ï¿½ï¿½ï¿½â½«ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½
+Dï¿½ï¿½È±ï¿½ã£º
+    ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Ù±ä»¯ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½
+Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shenhaiyu 2013-11-01
 */
  
 int Filter_Value;
 int Value;
  
 void setup() {
-  Serial.begin(9600);       // ³õÊ¼»¯´®¿ÚÍ¨ÐÅ
-  randomSeed(analogRead(0)); // ²úÉúËæ»úÖÖ×Ó
+  Serial.begin(9600);       // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
+  randomSeed(analogRead(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   Value = 300;
 }
  
 void loop() {
-  Filter_Value = Filter();       // »ñµÃÂË²¨Æ÷Êä³öÖµ
-  Serial.println(Filter_Value); // ´®¿ÚÊä³ö
+  Filter_Value = Filter();       // ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+  Serial.println(Filter_Value); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   delay(50);
 }
  
-// ÓÃÓÚËæ»ú²úÉúÒ»¸ö300×óÓÒµÄµ±Ç°Öµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½300ï¿½ï¿½ï¿½ÒµÄµï¿½Ç°Öµ
 int Get_AD() {
   return random(295, 305);
 }
  
-// ÏÞ·ùÏû¶¶ÂË²¨·¨
+// ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½
 #define FILTER_A 1
 #define FILTER_N 5
 int i = 0;

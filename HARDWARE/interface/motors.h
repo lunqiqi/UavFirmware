@@ -6,27 +6,18 @@
 #include "config.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * µç»úÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 
-/* 96MÖ÷ÆµÏÂ 8Î»¾«¶ÈÊä³ö375K PWM */
+/* 96Mï¿½ï¿½Æµï¿½ï¿½ 8Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½375K PWM */
 #define TIM_CLOCK_HZ 				96000000
 #define MOTORS_PWM_BITS           	8
 #define MOTORS_PWM_PERIOD         	((1<<MOTORS_PWM_BITS) - 1)
 #define MOTORS_PWM_PRESCALE       	0
 
 
-#define ENABLE_THRUST_BAT_COMPENSATED	/*Ê¹ÄÜµç³ØÓÍÃÅ²¹³¥*/
+#define ENABLE_THRUST_BAT_COMPENSATED	/*Ê¹ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½ï¿½*/
 
 #define NBR_OF_MOTORS 	4
 #define MOTOR_M1  		0
@@ -39,9 +30,9 @@
 #define MOTORS_TEST_DELAY_TIME_MS 150
 
 
-void motorsInit(void);		/*µç»ú³õÊ¼»¯*/
-bool motorsTest(void);		/*µç»ú²âÊÔ*/
-void motorsSetRatio(u32 id, u16 ithrust);	/*ÉèÖÃµç»úÕ¼¿Õ±È*/
+void motorsInit(void);		/*ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½*/
+bool motorsTest(void);		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+void motorsSetRatio(u32 id, u16 ithrust);	/*ï¿½ï¿½ï¿½Ãµï¿½ï¿½Õ¼ï¿½Õ±ï¿½*/
 
 #endif /* __MOTORS_H */
 

@@ -4,34 +4,23 @@
 #include "wifi_ctrl.h"
 #include "optical_flow.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼þ*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "timers.h"
 
-/********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * À©Õ¹Ä£¿é¹ÜÀíÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2018/5/2
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
-********************************************************************************/
+
 
 static xTimerHandle timer;
 static enum expModuleID moduleID = NO_MODULE;
 
-//»ñÈ¡À©Õ¹Ä£¿éID
+//ï¿½ï¿½È¡ï¿½ï¿½Õ¹Ä£ï¿½ï¿½ID
 enum expModuleID getModuleID(void)
 {
 	return moduleID;
 }
 
-//À©Õ¹Ä£¿éµçÔ´¿ØÖÆ
+//ï¿½ï¿½Õ¹Ä£ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½
 void expModulePower(bool state)
 {
 	wifiPowerControl(false);
@@ -59,7 +48,7 @@ void expModulePower(bool state)
 	}	
 }
 
-//Èí¼þ¶¨Ê±Æ÷ÖÐ¶Ï¼ì²âÀ©Õ¹Ä£¿é
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ð¶Ï¼ï¿½ï¿½ï¿½ï¿½Õ¹Ä£ï¿½ï¿½
 static void expModuleDetect(xTimerHandle xTimer)
 {
 	static u8 cnt = 0;
@@ -68,7 +57,7 @@ static void expModuleDetect(xTimerHandle xTimer)
 	if(id != moduleID && ++cnt > 3)
 	{
 		cnt = 0;
-		moduleID = id;	/*¸üÐÂÄ£¿éID*/
+		moduleID = id;	/*ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ID*/
 		
 		wifiPowerControl(false);
 		ledringPowerControl(false);
@@ -92,7 +81,7 @@ static void expModuleDetect(xTimerHandle xTimer)
 	}
 }
 
-//À©Õ¹Ä£¿é¹ÜÀíÈÎÎñ
+//ï¿½ï¿½Õ¹Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void expModuleMgtTask(void* param)
 {
 	timer = xTimerCreate( "expModuleTimer", 500, pdTRUE, NULL, expModuleDetect);

@@ -2,16 +2,7 @@
 #include "motors.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * ¹¦ÂÊÊä³ö¿ØÖÆ´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 static bool motorSetEnable = false;
@@ -47,7 +38,7 @@ u16 limitThrust(int value)
 	return (u16)value;
 }
 
-void powerControl(control_t *control)	/*¹¦ÂÊÊä³ö¿ØÖÆ*/
+void powerControl(control_t *control)	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	s16 r = control->roll / 2.0f;
 	s16 p = control->pitch / 2.0f;
@@ -61,7 +52,7 @@ void powerControl(control_t *control)	/*¹¦ÂÊÊä³ö¿ØÖÆ*/
 	{
 		motorPWM = motorPWMSet;
 	}
-	motorsSetRatio(MOTOR_M1, motorPWM.m1);	/*¿ØÖÆµç»úÊä³ö°Ù·Ö±È*/
+	motorsSetRatio(MOTOR_M1, motorPWM.m1);	/*ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±ï¿½*/
 	motorsSetRatio(MOTOR_M2, motorPWM.m2);
 	motorsSetRatio(MOTOR_M3, motorPWM.m3);
 	motorsSetRatio(MOTOR_M4, motorPWM.m4);

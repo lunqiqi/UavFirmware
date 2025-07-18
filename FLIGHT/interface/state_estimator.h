@@ -3,31 +3,22 @@
 #include "stabilizer_types.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * ×ËÌ¬¹À²â´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 typedef struct
 {
-	float vAccDeadband; /* ¼ÓËÙ¶ÈËÀÇø */
-	float accBias[3];	/* ¼ÓËÙ¶È Æ«ÖÃ(cm/s/s)*/
-	float acc[3];		/* ¹À²â¼ÓËÙ¶È µ¥Î»(cm/s/s)*/
-	float vel[3];		/* ¹À²âËÙ¶È µ¥Î»(cm/s)*/
-	float pos[3]; 		/* ¹À²âÎ»ÒÆ µ¥Î»(cm)*/
+	float vAccDeadband; /* ï¿½ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½ */
+	float accBias[3];	/* ï¿½ï¿½ï¿½Ù¶ï¿½ Æ«ï¿½ï¿½(cm/s/s)*/
+	float acc[3];		/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ ï¿½ï¿½Î»(cm/s/s)*/
+	float vel[3];		/* ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ ï¿½ï¿½Î»(cm/s)*/
+	float pos[3]; 		/* ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ ï¿½ï¿½Î»(cm)*/
 } estimator_t;
 
 void positionEstimate(sensorData_t* sensorData, state_t* state, float dt);	
-float getFusedHeight(void);	/*¶ÁÈ¡ÈÚºÏ¸ß¶È*/
-void estRstHeight(void);	/*¸´Î»¹À²â¸ß¶È*/
-void estRstAll(void);		/*¸´Î»ËùÓÐ¹À²â*/
+float getFusedHeight(void);	/*ï¿½ï¿½È¡ï¿½ÚºÏ¸ß¶ï¿½*/
+void estRstHeight(void);	/*ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ß¶ï¿½*/
+void estRstAll(void);		/*ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½*/
 
 #endif /* __STATE_ESTIMATOR_H */
 

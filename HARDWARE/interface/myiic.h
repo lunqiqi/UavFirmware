@@ -2,41 +2,31 @@
 #define __MYIIC_H
 #include "sys.h" 
 
-/********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * Ä£ÄâIICÇý¶¯´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/2
- * °æ±¾£ºV1.1
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
-//IO·½ÏòÉèÖÃ
-#define SDA_IN()  {GPIOB->MODER&=~(3<<(4*2));GPIOB->MODER|=0<<4*2;}	//PB4ÊäÈëÄ£Ê½
-#define SDA_OUT() {GPIOB->MODER&=~(3<<(4*2));GPIOB->MODER|=1<<4*2;} //PB4Êä³öÄ£Ê½
-//IO²Ù×÷º¯Êý	 
+//IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define SDA_IN()  {GPIOB->MODER&=~(3<<(4*2));GPIOB->MODER|=0<<4*2;}	//PB4ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+#define SDA_OUT() {GPIOB->MODER&=~(3<<(4*2));GPIOB->MODER|=1<<4*2;} //PB4ï¿½ï¿½ï¿½Ä£Ê½
+//IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	 
 #define IIC_SCL    PBout(5) //SCL
 #define IIC_SDA    PBout(4) //SDA	 
-#define READ_SDA   PBin(4)  //ÊäÈëSDA 
+#define READ_SDA   PBin(4)  //ï¿½ï¿½ï¿½ï¿½SDA 
 
 
-//IICËùÓÐ²Ù×÷º¯Êý
-void IIC_Init(void);                //³õÊ¼»¯IICµÄIO¿Ú				 
-void IIC_Start(void);				//·¢ËÍIIC¿ªÊ¼ÐÅºÅ
-void IIC_Stop(void);	  			//·¢ËÍIICÍ£Ö¹ÐÅºÅ
-void IIC_Send_Byte(u8 txd);			//IIC·¢ËÍÒ»¸ö×Ö½Ú
-u8 IIC_Read_Byte(unsigned char ack);//IIC¶ÁÈ¡Ò»¸ö×Ö½Ú
-u8 IIC_Wait_Ack(void); 				//IICµÈ´ýACKÐÅºÅ
-void IIC_Ack(void);					//IIC·¢ËÍACKÐÅºÅ
-void IIC_NAck(void);				//IIC²»·¢ËÍACKÐÅºÅ 
-uint8_t IIC_ReadByte(uint8_t devaddr,uint8_t addr);	/*¶ÁÒ»×Ö½Ú*/
-void IIC_WriteByte(uint8_t devaddr,uint8_t addr,uint8_t data);	/*Ð´Ò»×Ö½Ú*/
-void IIC_Read(uint8_t devaddr,uint8_t addr,uint8_t len,uint8_t *rbuf);	/*Á¬Ðø¶ÁÈ¡¶à¸ö×Ö½Ú*/
-void IIC_Write(uint8_t devaddr,uint8_t addr,uint8_t len,uint8_t *wbuf);/*Á¬ÐøÐ´Èë¶à¸ö×Ö½Ú*/
+//IICï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void IIC_Init(void);                //ï¿½ï¿½Ê¼ï¿½ï¿½IICï¿½ï¿½IOï¿½ï¿½				 
+void IIC_Start(void);				//ï¿½ï¿½ï¿½ï¿½IICï¿½ï¿½Ê¼ï¿½Åºï¿½
+void IIC_Stop(void);	  			//ï¿½ï¿½ï¿½ï¿½IICÍ£Ö¹ï¿½Åºï¿½
+void IIC_Send_Byte(u8 txd);			//IICï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö½ï¿½
+u8 IIC_Read_Byte(unsigned char ack);//IICï¿½ï¿½È¡Ò»ï¿½ï¿½ï¿½Ö½ï¿½
+u8 IIC_Wait_Ack(void); 				//IICï¿½È´ï¿½ACKï¿½Åºï¿½
+void IIC_Ack(void);					//IICï¿½ï¿½ï¿½ï¿½ACKï¿½Åºï¿½
+void IIC_NAck(void);				//IICï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ACKï¿½Åºï¿½ 
+uint8_t IIC_ReadByte(uint8_t devaddr,uint8_t addr);	/*ï¿½ï¿½Ò»ï¿½Ö½ï¿½*/
+void IIC_WriteByte(uint8_t devaddr,uint8_t addr,uint8_t data);	/*Ð´Ò»ï¿½Ö½ï¿½*/
+void IIC_Read(uint8_t devaddr,uint8_t addr,uint8_t len,uint8_t *rbuf);	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+void IIC_Write(uint8_t devaddr,uint8_t addr,uint8_t len,uint8_t *wbuf);/*ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
 
 #endif
 

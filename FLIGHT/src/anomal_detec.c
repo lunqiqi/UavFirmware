@@ -6,29 +6,18 @@
 #include "stabilizer.h"
 #include "module_mgt.h"
 
-/********************************************************************************	 
- * ±¾³ÌĞòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßĞí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * Òì³£¼ì²âÇı¶¯´úÂë	
- * ÕıµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2018/5/2
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓĞ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾ 2014-2024
- * All rights reserved
-********************************************************************************/
+
 
 #if defined(DETEC_ENABLED)
 
 static u16 outFlipCnt = 0;		
 
 
-static bool detecFreeFall(float accZ, float accMAG)	/*×ÔÓÉÂäÌå¼ì²â*/
+static bool detecFreeFall(float accZ, float accMAG)	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	static u16 cnt;
 
-	/*×ÔÓÉÂäÌå*/
+	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	if(fabs(accMAG) < DETEC_FF_THRESHOLD && fabs(accZ + 1.f) < DETEC_FF_THRESHOLD)	
 	{	
 		if(++cnt >= (DETEC_FF_COUNT))
@@ -44,7 +33,7 @@ static bool detecFreeFall(float accZ, float accMAG)	/*×ÔÓÉÂäÌå¼ì²â*/
 	return false;
 }
 
-static bool detecTumbled(const state_t *state)	/*Åö×²¼ì²â*/
+static bool detecTumbled(const state_t *state)	/*ï¿½ï¿½×²ï¿½ï¿½ï¿½*/
 {
 	static u16 cnt;
 	
@@ -67,7 +56,7 @@ static bool detecTumbled(const state_t *state)	/*Åö×²¼ì²â*/
 }
 #endif
 
-/*Òì³£¼ì²â*/
+/*ï¿½ì³£ï¿½ï¿½ï¿½*/
 void anomalDetec(const sensorData_t *sensorData, const state_t *state, const control_t *control)
 {
 #if defined(DETEC_ENABLED)
@@ -78,18 +67,18 @@ void anomalDetec(const sensorData_t *sensorData, const state_t *state, const con
 		return;
 	}	
 
-	if(state->isRCLocked == false && 		//Ò£¿ØÆ÷½âËø×´Ì¬
-	getCommanderKeyFlight() == false &&		//Î´·ÉĞĞ×´Ì¬
-	(getCommanderCtrlMode() & 0x01) == 0x01)//¶¨¸ßÄ£Ê½
+	if(state->isRCLocked == false && 		//Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	getCommanderKeyFlight() == false &&		//Î´ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	(getCommanderCtrlMode() & 0x01) == 0x01)//ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 	{
 		float accMAG = (sensorData->acc.x*sensorData->acc.x) +
 						(sensorData->acc.y*sensorData->acc.y) +
 						(sensorData->acc.z*sensorData->acc.z);
 
-		if(detecFreeFall(state->acc.z/980.f, accMAG) == true)/*×ÔÓÉÂäÌå¼ì²â*/
+		if(detecFreeFall(state->acc.z/980.f, accMAG) == true)/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 		{				
 			setCommanderKeyFlight(true);
-			setFastAdjustPosParam(35, 10, 0.f);	/*ÉèÖÃ¿ìËÙµ÷ÕûÎ»ÖÃ²ÎÊı*/
+			setFastAdjustPosParam(35, 10, 0.f);	/*ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ùµï¿½ï¿½ï¿½Î»ï¿½Ã²ï¿½ï¿½ï¿½*/
 		}
 	}
 	
@@ -97,7 +86,7 @@ void anomalDetec(const sensorData_t *sensorData, const state_t *state, const con
 	{
 		outFlipCnt--;
 	}
-	if(outFlipCnt == 0 && detecTumbled(state)==true)/*Åö×²¼ì²â*/
+	if(outFlipCnt == 0 && detecTumbled(state)==true)/*ï¿½ï¿½×²ï¿½ï¿½ï¿½*/
 	{
 		setCommanderKeyFlight(false);
 		setCommanderKeyland(false);

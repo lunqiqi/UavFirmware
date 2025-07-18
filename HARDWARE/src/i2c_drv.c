@@ -4,27 +4,16 @@
 #include "config.h"
 #include "delay.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼þ*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
 
-/********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * IICµ×²ãÇý¶¯¿ØÖÆ´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2018/5/2
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
-********************************************************************************/
 
 
-//´«¸ÐÆ÷IIC×ÜÏßËÙ¶È
+
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IICï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
 #define I2C_SENSORS_CLOCK_SPEED	400000
 #define I2C_DECK_CLOCK_SPEED	400000
 
@@ -53,48 +42,48 @@
 
   
 /**
- * IICµ×²ãÇý¶¯³õÊ¼»¯
+ * IICï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
  */
 static void i2cdrvInitBus(I2cDrv* i2c);
 /**
- * IIC DMA³õÊ¼»¯
+ * IIC DMAï¿½ï¿½Ê¼ï¿½ï¿½
  */
 static void i2cdrvDmaSetupBus(I2cDrv* i2c);
 /**
- * Æô¶¯IIC´«Êä
+ * ï¿½ï¿½ï¿½ï¿½IICï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvStartTransfer(I2cDrv *i2c);
 /**
- * ÖØÆôIIC×ÜÏß
+ * ï¿½ï¿½ï¿½ï¿½IICï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvTryToRestartBus(I2cDrv* i2c);
 /**
- * »·Â·ÑÓÊ±
+ * ï¿½ï¿½Â·ï¿½ï¿½Ê±
  */
 static inline void i2cdrvRoughLoopDelay(uint32_t us);
 /**
- * ½âËøIIC×ÜÏß
+ * ï¿½ï¿½ï¿½ï¿½IICï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvdevUnlockBus(GPIO_TypeDef* portSCL, GPIO_TypeDef* portSDA, uint16_t pinSCL, uint16_t pinSDA);
 /**
- * Çå³ýDMAÊý¾ÝÁ÷
+ * ï¿½ï¿½ï¿½DMAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvClearDMA(I2cDrv* i2c);
 /**
- * ÊÂ¼þÖÐ¶Ï·þÎñº¯Êý
+ * ï¿½Â¼ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvEventIsrHandler(I2cDrv* i2c);
 /**
- * ´íÎóÖÐ¶Ï·þÎñº¯Êý
+ * ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvErrorIsrHandler(I2cDrv* i2c);
 /**
- * DMAÖÐ¶Ï·þÎñº¯Êý
+ * DMAï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvDmaIsrHandler(I2cDrv* i2c);
 
 /**
- * ´«¸ÐÆ÷×ÜÏß¶¨Òå
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½ï¿½ï¿½
  */
 static const I2cDef sensorsBusDef =
 {
@@ -121,7 +110,7 @@ static const I2cDef sensorsBusDef =
 };
 
 /**
- * ´«¸ÐÆ÷×ÜÏß
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 I2cDrv sensorsBus =
 {
@@ -159,7 +148,7 @@ I2cDrv deckBus =
 
 
 /**
- * »·Â·ÑÓÊ±
+ * ï¿½ï¿½Â·ï¿½ï¿½Ê±
  */
 static inline void i2cdrvRoughLoopDelay(uint32_t us)
 {
@@ -168,7 +157,7 @@ static inline void i2cdrvRoughLoopDelay(uint32_t us)
 	for(delay = 0; delay < I2CDEV_LOOPS_PER_US * us; ++delay) { };
 }
 /**
- * Æô¶¯IIC´«Êä
+ * ï¿½ï¿½ï¿½ï¿½IICï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvStartTransfer(I2cDrv *i2c)
 {
@@ -198,14 +187,14 @@ static void i2cNotifyClient(I2cDrv* i2c)
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 /**
- * ÖØÆôIIC×ÜÏß
+ * ï¿½ï¿½ï¿½ï¿½IICï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvTryToRestartBus(I2cDrv* i2c)
 {
 	i2cdrvInitBus(i2c);
 }
 /**
- * IIC DMA³õÊ¼»¯
+ * IIC DMAï¿½ï¿½Ê¼ï¿½ï¿½
  */
 static void i2cdrvDmaSetupBus(I2cDrv* i2c)
 {
@@ -237,7 +226,7 @@ static void i2cdrvDmaSetupBus(I2cDrv* i2c)
 	NVIC_Init(&NVIC_InitStructure);
 }
 /**
- * IICµ×²ãÇý¶¯³õÊ¼»¯
+ * IICï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
  */
 static void i2cdrvInitBus(I2cDrv* i2c)
 {
@@ -301,7 +290,7 @@ static void i2cdrvInitBus(I2cDrv* i2c)
 	i2c->isBusFreeMutex = xSemaphoreCreateMutex();
 }
 /**
- * ½âËøIIC×ÜÏß
+ * ï¿½ï¿½ï¿½ï¿½IICï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvdevUnlockBus(GPIO_TypeDef* portSCL, GPIO_TypeDef* portSDA, uint16_t pinSCL, uint16_t pinSDA)
 {
@@ -340,7 +329,7 @@ static void i2cdrvdevUnlockBus(GPIO_TypeDef* portSCL, GPIO_TypeDef* portSDA, uin
 
 //-----------------------------------------------------------
 /**
- * IICÍâÉè³õÊ¼»¯
+ * IICï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
  */
 void i2cdrvInit(I2cDrv* i2c)
 {
@@ -348,7 +337,7 @@ void i2cdrvInit(I2cDrv* i2c)
 }
 
 /**
- * ´´½¨Ò»¸ö´«ÊäÐÅÏ¢
+ * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
  */
 void i2cdrvCreateMessage(I2cMessage *message,
                       uint8_t  slaveAddress,
@@ -367,7 +356,7 @@ void i2cdrvCreateMessage(I2cMessage *message,
 }
 
 /**
- * ´´½¨Ò»¸öÓÃÓÚ´«ÊäÄÚ²¿¼Ä´æÆ÷µÄÐÅÏ¢
+ * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
  */
 void i2cdrvCreateMessageIntAddr(I2cMessage *message,
                              uint8_t  slaveAddress,
@@ -388,7 +377,7 @@ void i2cdrvCreateMessageIntAddr(I2cMessage *message,
 }
 
 /**
- * ·¢ËÍ»òÕß½ÓÊÕIICÐÅÏ¢
+ * ï¿½ï¿½ï¿½Í»ï¿½ï¿½ß½ï¿½ï¿½ï¿½IICï¿½ï¿½Ï¢
  */
 bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
 {
@@ -420,7 +409,7 @@ bool i2cdrvMessageTransfer(I2cDrv* i2c, I2cMessage* message)
 }
 
 /**
- * ÊÂ¼þÖÐ¶Ï·þÎñº¯Êý
+ * ï¿½Â¼ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvEventIsrHandler(I2cDrv* i2c)
 {
@@ -553,7 +542,7 @@ static void i2cdrvEventIsrHandler(I2cDrv* i2c)
 }
 
 /**
- * ´íÎóÖÐ¶Ï·þÎñº¯Êý
+ * ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvErrorIsrHandler(I2cDrv* i2c)
 {
@@ -587,7 +576,7 @@ static void i2cdrvErrorIsrHandler(I2cDrv* i2c)
 	}
 }
 /**
- * Çå³ýDMAÖÐ¶Ï±êÖ¾
+ * ï¿½ï¿½ï¿½DMAï¿½Ð¶Ï±ï¿½Ö¾
  */
 static void i2cdrvClearDMA(I2cDrv* i2c)
 {
@@ -598,7 +587,7 @@ static void i2cdrvClearDMA(I2cDrv* i2c)
 	DMA_ITConfig(i2c->def->dmaRxStream, DMA_IT_TC | DMA_IT_TE, DISABLE);
 }
 /**
- * ÊÂ¼þÖÐ¶Ï·þÎñº¯Êý
+ * ï¿½Â¼ï¿½ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 static void i2cdrvDmaIsrHandler(I2cDrv* i2c)
 {

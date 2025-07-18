@@ -13,33 +13,23 @@
 #include "vl53lxx.h"
 #include "maths.h"
 
-/*FreeRTOSÏà¹ØÍ·ÎÄ¼þ*/
+/*FreeRTOSï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½*/
 #include "FreeRTOS.h"
 #include "task.h"
 
 /********************************************************************************	 
- * ±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
- * ALIENTEK MiniFly
- * ËÄÖá×ÔÎÈ¿ØÖÆ´úÂë	
- * ÕýµãÔ­×Ó@ALIENTEK
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ´´½¨ÈÕÆÚ:2017/5/12
- * °æ±¾£ºV1.3
- * °æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
- * Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
- * All rights reserved
-********************************************************************************/
+
 
 static bool isInit;
 
-static setpoint_t 	setpoint;	/*ÉèÖÃÄ¿±ê×´Ì¬*/
-static sensorData_t sensorData;	/*´«¸ÐÆ÷Êý¾Ý*/
-static state_t 		state;		/*ËÄÖá×ËÌ¬*/
-static control_t 	control;	/*ËÄÖá¿ØÖÆ²ÎÊý*/
+static setpoint_t 	setpoint;	/*ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½×´Ì¬*/
+static sensorData_t sensorData;	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+static state_t 		state;		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¬*/
+static control_t 	control;	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½*/
 
-static u16 velModeTimes = 0;		/*ËÙÂÊÄ£Ê½´ÎÊý*/
-static u16 absModeTimes = 0;		/*¾ø¶ÔÖµÄ£Ê½´ÎÊý*/
-static float setHeight = 0.f;		/*Éè¶¨Ä¿±ê¸ß¶È µ¥Î»cm*/
+static u16 velModeTimes = 0;		/*ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½*/
+static u16 absModeTimes = 0;		/*ï¿½ï¿½ï¿½ï¿½ÖµÄ£Ê½ï¿½ï¿½ï¿½ï¿½*/
+static float setHeight = 0.f;		/*ï¿½è¶¨Ä¿ï¿½ï¿½ß¶ï¿½ ï¿½ï¿½Î»cm*/
 static float baroLast = 0.f;
 static float baroVelLpf = 0.f;
 
@@ -50,8 +40,8 @@ void stabilizerInit(void)
 {
 	if(isInit) return;
 
-	stateControlInit();		/*×ËÌ¬PID³õÊ¼»¯*/
-	powerControlInit();		/*µç»ú³õÊ¼»¯*/
+	stateControlInit();		/*ï¿½ï¿½Ì¬PIDï¿½ï¿½Ê¼ï¿½ï¿½*/
+	powerControlInit();		/*ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½*/
 
 	isInit = true;
 }
@@ -67,7 +57,7 @@ bool stabilizerTest(void)
 }
 
 
-/*ÉèÖÃ¿ìËÙµ÷Õû²ÎÊý*/	
+/*ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ùµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/	
 void setFastAdjustPosParam(u16 velTimes, u16 absTimes, float height)
 {
 	if(velTimes != 0 && velModeTimes == 0)
@@ -84,20 +74,20 @@ void setFastAdjustPosParam(u16 velTimes, u16 absTimes, float height)
 	}		
 }
 
-/*¿ìËÙµ÷Õû¸ß¶È*/
+/*ï¿½ï¿½ï¿½Ùµï¿½ï¿½ï¿½ï¿½ß¶ï¿½*/
 static void fastAdjustPosZ(void)
 {	
 	if(velModeTimes > 0)
 	{
 		velModeTimes--;
-		estRstHeight();	/*¸´Î»¹À²â¸ß¶È*/
+		estRstHeight();	/*ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ß¶ï¿½*/
 		
 		float baroVel = (sensorData.baro.asl - baroLast) / 0.004f;	/*250Hz*/
 		baroLast = sensorData.baro.asl;
 		baroVelLpf += (baroVel - baroVelLpf) * 0.35f;
 
 		setpoint.mode.z = modeVelocity;
-		state.velocity.z = baroVelLpf;		/*ÆøÑ¹¼ÆÈÚºÏ*/
+		state.velocity.z = baroVelLpf;		/*ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½Úºï¿½*/
 		setpoint.velocity.z = -1.0f * baroVelLpf;
 		
 		if(velModeTimes == 0)
@@ -111,7 +101,7 @@ static void fastAdjustPosZ(void)
 	else if(absModeTimes > 0)
 	{
 		absModeTimes--;
-		estRstAll();	/*¸´Î»¹À²â*/
+		estRstAll();	/*ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½*/
 		setpoint.mode.z = modeAbs;		
 		setpoint.position.z = setHeight;
 	}	
@@ -131,58 +121,58 @@ void stabilizerTask(void* param)
 	
 	while(1) 
 	{
-		vTaskDelayUntil(&lastWakeTime, MAIN_LOOP_DT);		/*1msÖÜÆÚÑÓÊ±*/
+		vTaskDelayUntil(&lastWakeTime, MAIN_LOOP_DT);		/*1msï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±*/
 
-		//»ñÈ¡6ÖáºÍÆøÑ¹Êý¾Ý£¨500Hz£©
+		//ï¿½ï¿½È¡6ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½Ý£ï¿½500Hzï¿½ï¿½
 		if (RATE_DO_EXECUTE(RATE_500_HZ, tick))
 		{
-			sensorsAcquire(&sensorData, tick);				/*»ñÈ¡6ÖáºÍÆøÑ¹Êý¾Ý*/
+			sensorsAcquire(&sensorData, tick);				/*ï¿½ï¿½È¡6ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½*/
 		}
 
-		//ËÄÔªÊýºÍÅ·À­½Ç¼ÆËã£¨250Hz£©
+		//ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ã£¨250Hzï¿½ï¿½
 		if (RATE_DO_EXECUTE(ATTITUDE_ESTIMAT_RATE, tick))
 		{
 			imuUpdate(sensorData.acc, sensorData.gyro, &state, ATTITUDE_ESTIMAT_DT);
 		}
 
-		//Î»ÖÃÔ¤¹À¼ÆËã£¨250Hz£©
+		//Î»ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ã£¨250Hzï¿½ï¿½
 		if (RATE_DO_EXECUTE(POSITION_ESTIMAT_RATE, tick))
 		{
 			positionEstimate(&sensorData, &state, POSITION_ESTIMAT_DT);
 		}
 			
-		//Ä¿±ê×ËÌ¬ºÍ·ÉÐÐÄ£Ê½Éè¶¨£¨100Hz£©	
+		//Ä¿ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½Í·ï¿½ï¿½ï¿½Ä£Ê½ï¿½è¶¨ï¿½ï¿½100Hzï¿½ï¿½	
 		if (RATE_DO_EXECUTE(RATE_100_HZ, tick) && getIsCalibrated()==true)
 		{
-			commanderGetSetpoint(&setpoint, &state);	/*Ä¿±êÊý¾ÝºÍ·ÉÐÐÄ£Ê½Éè¶¨*/	
+			commanderGetSetpoint(&setpoint, &state);	/*Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ÝºÍ·ï¿½ï¿½ï¿½Ä£Ê½ï¿½è¶¨*/	
 		}
 		
 		if (RATE_DO_EXECUTE(RATE_250_HZ, tick))
 		{
-			fastAdjustPosZ();	/*¿ìËÙµ÷Õû¸ß¶È*/
+			fastAdjustPosZ();	/*ï¿½ï¿½ï¿½Ùµï¿½ï¿½ï¿½ï¿½ß¶ï¿½*/
 		}		
 		
-		/*¶ÁÈ¡¹âÁ÷Êý¾Ý(100Hz)*/
+		/*ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(100Hz)*/
 		if (RATE_DO_EXECUTE(RATE_100_HZ, tick))
 		{
 			getOpFlowData(&state, 0.01f);	
 		}
 		
-		/*·­¹ö¼ì²â(500Hz) ·Ç¶¨µãÄ£Ê½*/
+		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(500Hz) ï¿½Ç¶ï¿½ï¿½ï¿½Ä£Ê½*/
 		if (RATE_DO_EXECUTE(RATE_500_HZ, tick) && (getCommanderCtrlMode() != 0x03))
 		{
 			flyerFlipCheck(&setpoint, &control, &state);	
 		}
 		
-		/*Òì³£¼ì²â*/
+		/*ï¿½ì³£ï¿½ï¿½ï¿½*/
 		anomalDetec(&sensorData, &state, &control);			
 		
-		/*PID¿ØÖÆ*/	
+		/*PIDï¿½ï¿½ï¿½ï¿½*/	
 		
 		stateControl(&control, &sensorData, &state, &setpoint, tick);
 				
 		
-		//¿ØÖÆµç»úÊä³ö£¨500Hz£©
+		//ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½500Hzï¿½ï¿½
 		if (RATE_DO_EXECUTE(RATE_500_HZ, tick))
 		{
 			powerControl(&control);	

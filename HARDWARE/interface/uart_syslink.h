@@ -4,16 +4,7 @@
 #include "sys.h"
 
 /********************************************************************************	 
- * 本程序只供学习使用，未经作者许可，不得用于其它任何用途
- * ALIENTEK MiniFly
- * usart2 串口通信驱动代码	
- * 正点原子@ALIENTEK
- * 技术论坛:www.openedv.com
- * 创建日期:2017/5/12
- * 版本：V1.3
- * 版权所有，盗版必究。
- * Copyright(C) 广州市星翼电子科技有限公司 2014-2024
- * All rights reserved
+
 ********************************************************************************/
 
 #define UARTSLK_TYPE             USART2	
@@ -42,15 +33,15 @@
 #define UARTSLK_TXEN_EXTI        EXTI_Line0
 
 
-void uartslkInit(void);		/*串口初始化*/
+void uartslkInit(void);		/*锟斤拷锟节筹拷始锟斤拷*/
 bool uartslkTest(void);
-bool uartslkGetDataWithTimout(u8 *c);	/*从接收队列读取数据(带超时处理)*/
-void uartslkSendData(u32 size, u8* data);	/*发送原始数据*/
-void uartslkSendDataIsrBlocking(u32 size, u8* data);/*中断方式发送原始数据*/
-int uartslkPutchar(int ch);		/*发送一个字符到串口*/
-void uartslkSendDataDmaBlocking(u32 size, u8* data);/*通过DMA发送原始数据*/
-void uartslkIsr(void);		/*串口中断服务函数*/
-void uartslkDmaIsr(void);	/*DMA中断服务函数*/
+bool uartslkGetDataWithTimout(u8 *c);	/*锟接斤拷锟秸讹拷锟叫讹拷取锟斤拷锟斤拷(锟斤拷锟斤拷时锟斤拷锟斤拷)*/
+void uartslkSendData(u32 size, u8* data);	/*锟斤拷锟斤拷原始锟斤拷锟斤拷*/
+void uartslkSendDataIsrBlocking(u32 size, u8* data);/*锟叫断凤拷式锟斤拷锟斤拷原始锟斤拷锟斤拷*/
+int uartslkPutchar(int ch);		/*锟斤拷锟斤拷一锟斤拷锟街凤拷锟斤拷锟斤拷锟斤拷*/
+void uartslkSendDataDmaBlocking(u32 size, u8* data);/*通锟斤拷DMA锟斤拷锟斤拷原始锟斤拷锟斤拷*/
+void uartslkIsr(void);		/*锟斤拷锟斤拷锟叫断凤拷锟斤拷锟斤拷*/
+void uartslkDmaIsr(void);	/*DMA锟叫断凤拷锟斤拷锟斤拷*/
 void uartslkTxenFlowctrlIsr(void);
 
 #endif /* __UART_SYSLINK_H */
